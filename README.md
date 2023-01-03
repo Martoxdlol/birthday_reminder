@@ -19,8 +19,17 @@ Steps
 - Open a terminal inside the project
 - Run `dart pub get`
 - Run `firebase use --add` and choose your project and use `default` as alias name
-- Set configure SHA hash on your firebase project (use `keytool -list -v -keystore %USERPROFILE%/.android/debug.keystore -alias androiddebugkey -storepass android -keypass android` to get teh hash)
+- Set configure SHA hash on your firebase project (see below)
 - **Optional** Change package name. You can use [change_app_package_name](https://pub.dev/packages/change_app_package_name) package. ([More info here](https://stackoverflow.com/questions/51534616/how-to-change-package-name-in-flutter)).
 - run `flutterfire configure` and confirm for all platforms
 
 Now you can run the app with flutter support using `flutter run`
+
+## Get signing SHA hash
+
+Use this command on CMD `keytool -list -v -keystore %USERPROFILE%/.android/debug.keystore -alias androiddebugkey -storepass android -keypass android` 
+or this on mac/linux `keytool -list -v -keystore ~/.android/debug.keystore -alias androiddebugkey -storepass android -keypass android` 
+
+### Set SHA into your Firebase project
+
+Go to Firebase: project settings > your apps > choose android app and add signature SHA
