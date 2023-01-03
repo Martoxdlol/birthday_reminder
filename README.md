@@ -33,3 +33,10 @@ or this on mac/linux `keytool -list -v -keystore ~/.android/debug.keystore -alia
 ### Set SHA into your Firebase project
 
 Go to Firebase: project settings > your apps > choose android app and add signature SHA
+
+
+## Util notes
+
+The app is using [flutter internationalization](https://docs.flutter.dev/development/accessibility-and-localization/internationalization)
+
+To generate dart lib use `flutter gen-l10n`
