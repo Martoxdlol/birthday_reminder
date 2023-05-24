@@ -1,5 +1,8 @@
 {
+    "mainPageTitle": "Proximos cumpleaños",
     "appName": "Recordador de cumpleaños",
-    "signIn": "Iniciar sesión"
-
+    "signIn": "Iniciar sesión",
+    "birthdays": "Cumpleaños",
+    "add": "Agregar",
+    "settings": "Configuración"
 }

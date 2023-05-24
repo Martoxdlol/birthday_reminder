@@ -1,5 +1,5 @@
-import 'package:birthday_reminder/home.dart';
-import 'package:birthday_reminder/login.dart';
+import 'package:birthday_reminder/pages/home.dart';
+import 'package:birthday_reminder/pages/login.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 

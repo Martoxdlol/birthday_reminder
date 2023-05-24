@@ -49,8 +49,7 @@ class LoginPage extends StatelessWidget {
                 Buttons.Google,
                 text: "Sign up with Google",
                 onPressed: () {
-                  FirebaseAuth.instance
-                      .signInWithProvider(GoogleAuthProvider());
+                  FirebaseAuth.instance.signInWithProvider(GoogleAuthProvider());
                 },
               ),
             ),
@@ -112,10 +111,7 @@ class SigninWithButton extends StatelessWidget {
       //   ),
       // ),
       onPressed: () {},
-      icon: Image.network(
-          'http://pngimg.com/uploads/google/google_PNG19635.png',
-          width: 30,
-          fit: BoxFit.cover),
+      icon: Image.network('http://pngimg.com/uploads/google/google_PNG19635.png', width: 30, fit: BoxFit.cover),
       label: Text("Sigin With Google"),
     );
   }

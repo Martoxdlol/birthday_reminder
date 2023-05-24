@@ -1,4 +1,8 @@
 {
+    "mainPageTitle": "Upcoming birthdays",
     "appName": "Birthday Reminder",
-    "signIn": "Sign in"
+    "signIn": "Sign in",
+    "birthdays": "Birthdays",
+    "add": "Add birthday",
+    "settings": "Settings"
 }
