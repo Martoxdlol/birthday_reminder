@@ -1,8 +1,8 @@
 import 'package:birthday_reminder/strings.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_signin_button/flutter_signin_button.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
@@ -49,8 +49,11 @@ class LoginPage extends StatelessWidget {
                 Buttons.Google,
                 text: "Sign up with Google",
                 onPressed: () {
-                  print(FirebaseAuth.instance);
-                  FirebaseAuth.instance.signInWithProvider(GoogleAuthProvider());
+                  if (kIsWeb) {
+                    FirebaseAuth.instance.signInWithRedirect(GoogleAuthProvider());
+                  } else {
+                    FirebaseAuth.instance.signInWithProvider(GoogleAuthProvider());
+                  }
                 },
               ),
             ),
