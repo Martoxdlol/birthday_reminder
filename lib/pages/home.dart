@@ -2,8 +2,11 @@ import 'package:birthday_reminder/layouts/add_new.dart';
 import 'package:birthday_reminder/layouts/birthdays_list.dart';
 import 'package:birthday_reminder/layouts/settings_page.dart';
 import 'package:birthday_reminder/strings.dart';
+import 'package:birthday_reminder/widgets/confirm_dialog.dart';
+import 'package:birthday_reminder/widgets/search_appbar.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:carousel_slider/carousel_slider.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Home extends StatefulWidget {
   const Home({super.key});
@@ -14,38 +17,69 @@ class Home extends StatefulWidget {
 
 class _HomeState extends State<Home> {
   List<int> indexes = [0];
+  String filter = '';
 
-  CarouselController controller = CarouselController();
-  ScrollController listScrollController = ScrollController();
-  double appBarElevation = 0;
+  var addBirthdayData = NewBirthdayData(
+    name: '',
+    day: DateTime.now().day,
+    month: DateTime.now().month,
+    year: DateTime.now().year,
+    notes: '',
+  );
 
-  void updateScrollPosition() {
-    final scrollPosition = listScrollController.position.pixels;
-    double nextAppBarElevation = 0;
-    if ((scrollPosition / 3) <= 4) {
-      nextAppBarElevation = scrollPosition / 10;
+  Future<void> saveBirthday() async {
+    final date = DateTime(
+      addBirthdayData.year,
+      addBirthdayData.month,
+      addBirthdayData.day,
+    );
+
+    if (date.month != addBirthdayData.month) {
+      return;
     }
-    if ((scrollPosition / 3) > 4) {
-      nextAppBarElevation = 4;
-    }
 
-    if (nextAppBarElevation == appBarElevation) return;
+    if (addBirthdayData.name.trim() == '') return;
 
     setState(() {
-      appBarElevation = nextAppBarElevation;
+      indexes.removeLast();
+      if (indexes.last != 0) indexes.add(0);
     });
-  }
 
-  @override
-  void initState() {
-    listScrollController.addListener(updateScrollPosition);
-    super.initState();
-  }
+    try {
+      await FirebaseFirestore.instance.collection('birthdays').add({
+        "birth": date,
+        "noYear": addBirthdayData.year == 0,
+        "notes": addBirthdayData.notes,
+        "owner": FirebaseAuth.instance.currentUser!.uid,
+        "personName": addBirthdayData.name,
+        "app_version": "2.0.0",
+        "created_at": DateTime.now(),
+        "updated_at": DateTime.now(),
+      });
 
-  @override
-  void dispose() {
-    listScrollController.removeListener(updateScrollPosition);
-    super.dispose();
+      setState(() {
+        addBirthdayData = NewBirthdayData(
+          name: '',
+          day: DateTime.now().day,
+          month: DateTime.now().month,
+          year: DateTime.now().year,
+          notes: '',
+        );
+      });
+    } catch (e) {
+      confirm(
+        context,
+        onInput: (result) {
+          Navigator.of(context).pop();
+          setState(() {
+            if (indexes.last == 1) return;
+            indexes.add(1);
+          });
+        },
+        title: Text("Ocurrió un error"),
+        content: Text("No se pudo guardar el cumpleaños. Por favor, intenta de nuevo."),
+      );
+    }
   }
 
   @override
@@ -53,33 +87,70 @@ class _HomeState extends State<Home> {
     final strings = appStrings(context);
     final currentIndex = indexes.last;
 
+    Widget body = BirthdaysList(
+      filter: filter,
+    );
+
+    if (currentIndex == 1) {
+      body = NewBirthday(
+        data: addBirthdayData,
+        onDataChange: (data) {
+          setState(() {
+            addBirthdayData = data;
+          });
+        },
+      );
+    } else if (currentIndex == 2) {
+      body = SettingsPage();
+    }
+
     return WillPopScope(
       onWillPop: () async {
         if (indexes.length > 1) {
-          final destinationIndex = indexes[indexes.length - 2];
           setState(() {
             indexes.removeLast();
           });
-          controller.animateToPage(destinationIndex);
           return false;
         }
         return true;
       },
       child: Scaffold(
-        appBar: AppBar(
-          title: Text(strings.mainPageTitle),
-          shadowColor: Colors.black26,
-          elevation: appBarElevation,
-          actions: [
-            IconButton(icon: Icon(Icons.cake), onPressed: () {}),
-          ],
+        appBar: SearchAppBar(
+          elevation: currentIndex == 2 ? 3.0 : null,
+          searchEnabled: currentIndex == 0,
+          onCancel: () {
+            setState(() {
+              filter = '';
+            });
+          },
+          onSearch: (query) {
+            setState(() {
+              filter = query;
+            });
+          },
         ),
+        // appBar: AppBar(
+        //   title: Text(strings.mainPageTitle),
+        //   shadowColor: Colors.black26,
+        //   elevation: currentIndex == 2 ? 3.0 : null,
+        //   actions: [
+        //     IconButton(icon: Icon(Icons.search), onPressed: () {}),
+        //   ],
+        // ),
         floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
+        floatingActionButton: currentIndex == 1
+            ? FloatingActionButton.extended(
+                onPressed: saveBirthday,
+                icon: Icon(Icons.save_rounded),
+                label: Text("Guardar"),
+              )
+            : null,
         bottomNavigationBar: NavigationBar(
           selectedIndex: currentIndex,
+          elevation: 3.0,
           onDestinationSelected: (int destinationIndex) {
             if (currentIndex == destinationIndex) return;
-            controller.animateToPage(destinationIndex);
+
             setState(() {
               indexes.add(destinationIndex);
             });
@@ -99,30 +170,7 @@ class _HomeState extends State<Home> {
             ),
           ],
         ),
-        body: CarouselSlider(
-          carouselController: controller,
-          options: CarouselOptions(
-            enableInfiniteScroll: true,
-            animateToClosest: true,
-            disableCenter: false,
-            enlargeStrategy: CenterPageEnlargeStrategy.height,
-            viewportFraction: 1,
-            height: double.infinity,
-            onPageChanged: (index, reason) {
-              setState(() {
-                if (currentIndex == index) return;
-                indexes.add(index);
-              });
-            },
-          ),
-          items: [
-            BirthdaysList(
-              scrollController: listScrollController,
-            ),
-            NewBirthday(),
-            SettingsPage(),
-          ],
-        ),
+        body: body,
       ),
     );
   }

@@ -1,3 +1,4 @@
+import 'package:birthday_reminder/layouts/birthday_view.dart';
 import 'package:flutter/material.dart';
 
 class BirthdayCard extends StatelessWidget {
@@ -5,10 +6,16 @@ class BirthdayCard extends StatelessWidget {
     super.key,
     required this.personName,
     required this.date,
+    required this.noYear,
+    required this.notes,
+    required this.id,
   });
 
   final String personName;
   final DateTime date;
+  final bool noYear;
+  final String notes;
+  final String id;
 
   @override
   Widget build(BuildContext context) {
@@ -24,9 +31,17 @@ class BirthdayCard extends StatelessWidget {
 
     final difference = nextBirthday.difference(now);
 
+    var diff = difference.inDays;
+
+    if (diff < 0) {
+      diff = 365 + diff;
+    }
+
     return Card(
       child: InkWell(
-        onTap: () {},
+        onTap: () {
+          showBirthdayView(context, date: nextBirthday, notes: notes, name: personName, noYear: noYear, id: id);
+        },
         customBorder: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(10),
         ),
@@ -36,7 +51,7 @@ class BirthdayCard extends StatelessWidget {
             children: [
               Text(personName),
               Expanded(child: SizedBox.shrink()),
-              Text("En ${difference.inDays} días"),
+              Text("En $diff días"),
             ],
           ),
         ),

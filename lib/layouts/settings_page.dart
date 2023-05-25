@@ -15,6 +15,8 @@ class _SettingsPageState extends State<SettingsPage> {
     final user = FirebaseAuth.instance.currentUser;
 
     return SettingsList(
+      lightTheme: SettingsThemeData(settingsListBackground: Colors.transparent),
+      darkTheme: SettingsThemeData(settingsListBackground: Colors.transparent),
       sections: [
         SettingsSection(
           title: Text('Account'),
