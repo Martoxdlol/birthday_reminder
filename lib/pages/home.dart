@@ -45,6 +45,8 @@ class _HomeState extends State<Home> {
       if (indexes.last != 0) indexes.add(0);
     });
 
+    final strings = appStrings(context);
+
     try {
       await FirebaseFirestore.instance.collection('birthdays').add({
         "birth": date,
@@ -76,8 +78,8 @@ class _HomeState extends State<Home> {
             indexes.add(1);
           });
         },
-        title: Text("Ocurrió un error"),
-        content: Text("No se pudo guardar el cumpleaños. Por favor, intenta de nuevo."),
+        title: Text(strings.error_ocurred),
+        content: Text(strings.failed_to_save),
       );
     }
   }
@@ -142,7 +144,7 @@ class _HomeState extends State<Home> {
             ? FloatingActionButton.extended(
                 onPressed: saveBirthday,
                 icon: Icon(Icons.save_rounded),
-                label: Text("Guardar"),
+                label: Text(strings.save),
               )
             : null,
         bottomNavigationBar: NavigationBar(

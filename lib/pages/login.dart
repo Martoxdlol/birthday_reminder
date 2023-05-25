@@ -49,6 +49,7 @@ class LoginPage extends StatelessWidget {
                 Buttons.Google,
                 text: "Sign up with Google",
                 onPressed: () {
+                  print(FirebaseAuth.instance);
                   FirebaseAuth.instance.signInWithProvider(GoogleAuthProvider());
                 },
               ),

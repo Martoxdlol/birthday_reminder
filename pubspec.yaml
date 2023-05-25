@@ -35,7 +35,7 @@ dependencies:
   firebase_core: ^2.4.1
   flutter_localizations: # Add this line
     sdk: flutter         # Add this line
-  intl: ^0.18.0
+  intl: any
   firebase_auth: ^4.2.4
   cloud_firestore: ^4.3.1
   provider: ^6.0.5

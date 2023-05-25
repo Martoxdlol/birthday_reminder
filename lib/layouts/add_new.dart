@@ -74,9 +74,9 @@ class NewBirthday extends StatelessWidget {
         child: ListView(
           children: [
             TextFormField(
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 filled: true,
-                labelText: "Nombre de la persona",
+                labelText: strings.name_of_person,
               ),
               initialValue: data.name,
               onChanged: (value) {
@@ -91,7 +91,7 @@ class NewBirthday extends StatelessWidget {
                     onDataChange(data.copyWith(month: value));
                   },
                   value: data.month,
-                  label: 'Mes',
+                  label: strings.month,
                   items: months,
                 ),
                 const SizedBox(width: 10),
@@ -100,7 +100,7 @@ class NewBirthday extends StatelessWidget {
                     onDataChange(data.copyWith(day: value));
                   },
                   value: data.day,
-                  label: 'Día',
+                  label: strings.day,
                   items: days.map((e) => e.toString()).toList(),
                 )
               ],
@@ -116,9 +116,9 @@ class NewBirthday extends StatelessWidget {
             TextFormField(
               minLines: 2,
               maxLines: 5,
-              decoration: const InputDecoration(
+              decoration: InputDecoration(
                 filled: true,
-                labelText: "Notas",
+                labelText: strings.notes,
               ),
               onChanged: (value) {
                 onDataChange(data.copyWith(name: value));
@@ -180,67 +180,65 @@ class BirthYearPicker extends StatefulWidget {
 }
 
 class _BirthYearPickerState extends State<BirthYearPicker> {
-  var menuItems = <DropdownMenuItem<int>>[];
+  List<DropdownMenuItem<int>> menuItems(BuildContext context) {
+    final strings = appStrings(context);
+    final menuItems = <DropdownMenuItem<int>>[];
+    menuItems.add(DropdownMenuItem(
+      value: 0,
+      child: Text(strings.not_specified),
+    ));
 
-  @override
-  void initState() {
-    setState(() {
-      menuItems.add(const DropdownMenuItem(
-        value: 0,
-        child: Text("Sin especificar"),
-      ));
+    for (int i = -1; i < 130; i++) {
+      final currentYear = DateTime.now().year;
+      final year = currentYear - i;
+      final turns = currentYear - year;
 
-      for (int i = -1; i < 130; i++) {
-        final currentYear = DateTime.now().year;
-        final year = currentYear - i;
-        final turns = currentYear - year;
-
-        if (turns == -1) {
-          // next year
-          menuItems.add(DropdownMenuItem(
-            value: year,
-            child: Row(children: [
-              Text((DateTime.now().year - i).toString()),
-              const SizedBox(width: 7),
-              const Text("nace el año próximo", style: TextStyle(color: Colors.grey)),
-            ]),
-          ));
-        } else if (turns == 0) {
-          // this year
-          menuItems.add(DropdownMenuItem(
-            value: year,
-            child: Row(children: [
-              Text((DateTime.now().year - i).toString()),
-              const SizedBox(width: 7),
-              const Text("nace este año", style: TextStyle(color: Colors.grey)),
-            ]),
-          ));
-        } else {
-          // past years
-          menuItems.add(DropdownMenuItem(
-            value: year,
-            child: Row(children: [
-              Text((DateTime.now().year - i).toString()),
-              const SizedBox(width: 7),
-              Text("cumple $turns años", style: const TextStyle(color: Colors.grey)),
-            ]),
-          ));
-        }
+      if (turns == -1) {
+        // next year
+        menuItems.add(DropdownMenuItem(
+          value: year,
+          child: Row(children: [
+            Text((DateTime.now().year - i).toString()),
+            const SizedBox(width: 7),
+            Text(strings.born_next_year, style: const TextStyle(color: Colors.grey)),
+          ]),
+        ));
+      } else if (turns == 0) {
+        // this year
+        menuItems.add(DropdownMenuItem(
+          value: year,
+          child: Row(children: [
+            Text((DateTime.now().year - i).toString()),
+            const SizedBox(width: 7),
+            Text(strings.born_this_year, style: const TextStyle(color: Colors.grey)),
+          ]),
+        ));
+      } else {
+        // past years
+        menuItems.add(DropdownMenuItem(
+          value: year,
+          child: Row(children: [
+            Text((DateTime.now().year - i).toString()),
+            const SizedBox(width: 7),
+            Text("${strings.turns} $turns ${strings.years}", style: const TextStyle(color: Colors.grey)),
+          ]),
+        ));
       }
-    });
-    super.initState();
+    }
+    return menuItems;
   }
 
   @override
   Widget build(BuildContext context) {
+    final strings = appStrings(context);
     return DropdownButtonFormField(
       onChanged: (value) {},
-      decoration: const InputDecoration(
+      decoration: InputDecoration(
         filled: true,
-        labelText: "Año de nacimiento",
+        labelText: strings.year_of_birth,
       ),
       value: 0,
-      items: menuItems,
+      items: menuItems(context),
     );
   }
 }

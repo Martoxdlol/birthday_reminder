@@ -1,4 +1,5 @@
 import 'package:birthday_reminder/layouts/birthday_view.dart';
+import 'package:birthday_reminder/strings.dart';
 import 'package:flutter/material.dart';
 
 class BirthdayCard extends StatelessWidget {
@@ -20,6 +21,8 @@ class BirthdayCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final now = DateTime.now();
+
+    final strings = appStrings(context);
 
     final thisYear = now.year;
 
@@ -51,7 +54,7 @@ class BirthdayCard extends StatelessWidget {
             children: [
               Text(personName),
               Expanded(child: SizedBox.shrink()),
-              Text("En $diff días"),
+              Text("${strings.in_word} $diff ${strings.days}"),
             ],
           ),
         ),

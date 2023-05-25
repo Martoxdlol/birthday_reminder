@@ -5,7 +5,6 @@ import 'package:birthday_reminder/widgets/confirm_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
 
 class BirthdayView extends StatefulWidget {
   BirthdayView({
@@ -48,14 +47,12 @@ class _BirthdayViewState extends State<BirthdayView> {
   }
 
   bool get somethingChanged {
-    bool somethingChanged = false;
-    if (widget.name != data?.name) somethingChanged = true;
-    if (widget.date.day != data?.day) somethingChanged = true;
-    if (widget.date.month != data?.month) somethingChanged = true;
-    if (widget.noYear != (data?.year == 0)) somethingChanged = true;
-    if (widget.noYear && widget.date.year != data?.year) somethingChanged = true;
-    if (widget.notes != data?.notes) somethingChanged = true;
-    return somethingChanged;
+    if (widget.name != data?.name) return true;
+    if (widget.date.day != data?.day) return true;
+    if (widget.date.month != data?.month) return true;
+    if (widget.noYear != (data?.year == 0)) return true;
+    if (widget.notes != data?.notes) return true;
+    return false;
   }
 
   Future<void> save() async {
@@ -75,6 +72,7 @@ class _BirthdayViewState extends State<BirthdayView> {
 
   @override
   Widget build(BuildContext context) {
+    final strings = appStrings(context);
     return WillPopScope(
       onWillPop: () async {
         if (somethingChanged) {
@@ -84,14 +82,14 @@ class _BirthdayViewState extends State<BirthdayView> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text(somethingChanged ? "Editando" : (data?.name ?? widget.name)),
+          title: Text(somethingChanged ? strings.editing : (data?.name ?? widget.name)),
           actions: [
             IconButton(
               onPressed: () async {
                 final result = await confirm(
                   context,
                   onInput: (result) {},
-                  title: Text("¿Está seguro?"),
+                  title: Text(strings.are_you_sure),
                   content: Text("Se eliminará el cumpleaños de ${data?.name ?? widget.name}."),
                 );
 
@@ -125,7 +123,7 @@ class _BirthdayViewState extends State<BirthdayView> {
                 Navigator.of(context).pop();
                 save().then((value) {}).catchError((error) {
                   confirm(context,
-                      title: Text("Ocurrió un error"),
+                      title: Text(strings.error_ocurred),
                       onInput: (result) {},
                       content: Text("No se pudo guardar el cumpleaños. Intentelo mas tarde,"));
                 });
@@ -142,11 +140,11 @@ class _BirthdayViewState extends State<BirthdayView> {
           destinations: [
             NavigationDestination(
               icon: Icon(somethingChanged ? Icons.cancel : Icons.share),
-              label: somethingChanged ? "Cancelar" : "Compartir",
+              label: somethingChanged ? strings.cancel : strings.share,
             ),
             NavigationDestination(
               icon: Icon(somethingChanged ? Icons.save : Icons.close),
-              label: somethingChanged ? "Guardar" : "Cerrar",
+              label: somethingChanged ? strings.save : strings.close,
             ),
           ],
         ),
