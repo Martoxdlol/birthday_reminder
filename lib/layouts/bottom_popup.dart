@@ -33,12 +33,19 @@ class BottomPopupRoute extends PageRoute {
     final right = mediaQueryData.viewInsets.right + padding;
     final bottom = mediaQueryData.viewInsets.bottom + padding;
 
-    final maxHeight = mediaQueryData.size.height - 2 * bottom - mediaQueryData.padding.top;
+    final maxHeight = mediaQueryData.size.height - bottom - mediaQueryData.padding.top - padding;
 
     double curatedHeight = height;
 
+    double bottomOverflow = 0;
+
     if (curatedHeight > maxHeight) {
       curatedHeight = maxHeight;
+
+      if (curatedHeight < 300) {
+        bottomOverflow = 300 - curatedHeight - padding * 2;
+        curatedHeight = 300;
+      }
     }
 
     return GestureDetector(
@@ -80,7 +87,7 @@ class BottomPopupRoute extends PageRoute {
             Positioned(
               left: left,
               right: right,
-              bottom: bottom,
+              bottom: bottom - bottomOverflow,
               height: curatedHeight,
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(16),
@@ -108,5 +115,5 @@ class BottomPopupRoute extends PageRoute {
   }
 
   @override
-  Duration get transitionDuration => Duration(milliseconds: 300);
+  Duration get transitionDuration => const Duration(milliseconds: 180);
 }
