@@ -9,12 +9,14 @@ saying "Happy Birthday" to your firends/family/whatever.
 ## Setup dev environment
 
 Requirements:
-- [Dart](https://dart.dev/) and [Flutter](https://flutter.dev/) installed 
+
+- [Dart](https://dart.dev/) and [Flutter](https://flutter.dev/) installed
 - [Firebase cli](https://firebase.google.com/docs/cli) installed
 - [FlutterFire cli](https://firebase.google.com/docs/flutter/setup?platform=android) installed
 - Create or have a created firebase project.
 
 Steps
+
 - Clone repository
 - Open a terminal inside the project
 - Run `dart pub get`
@@ -27,13 +29,24 @@ Now you can run the app with flutter support using `flutter run`
 
 ## Get signing SHA hash
 
-Use this command on CMD `keytool -list -v -keystore %USERPROFILE%/.android/debug.keystore -alias androiddebugkey -storepass android -keypass android` 
-or this on mac/linux `keytool -list -v -keystore ~/.android/debug.keystore -alias androiddebugkey -storepass android -keypass android` 
+**On Windows**:
+
+- In command prompt: `keytool -list -v -keystore %USERPROFILE%/.android/debug.keystore -alias androiddebugkey -storepass android -keypass android`
+- In Powershell: `.\keytool -list -v -keystore $env:USERPROFILE/.android/debug.keystore -alias androiddebugkey -storepass android -keypass android`
+
+**On mac/linux**:
+- In the terminal: `keytool -list -v -keystore ~/.android/debug.keystore -alias androiddebugkey -storepass android -keypass android`
+
+**possible keytool paths in windows**:
+
+- C:\Program Files\Android\Android Studio\jbr\bin
+- C:\Program Files\Android\Android Studio\jre\bin
+- C:\Program Files\Java\jdk-19\bin
+- C:\Program Files\Java\jdk-VERSION\bin
 
 ### Set SHA into your Firebase project
 
 Go to Firebase: project settings > your apps > choose android app and add signature SHA
-
 
 ## Util notes
 
