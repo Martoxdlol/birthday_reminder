@@ -1,3 +1,5 @@
+import 'package:birthday_reminder/data.dart';
+import 'package:birthday_reminder/helpers/birthday.dart';
 import 'package:birthday_reminder/layouts/birthday_form_view.dart';
 import 'package:birthday_reminder/layouts/birthdays_list_view.dart';
 import 'package:birthday_reminder/layouts/settings_page.dart';
@@ -19,11 +21,13 @@ class _HomeState extends State<Home> {
   List<int> indexes = [0];
   String filter = '';
 
+  late Stream<List<Birthday>> stream;
+
   var addBirthdayData = BirthdayFormData(
     name: '',
     day: DateTime.now().day,
     month: DateTime.now().month,
-    year: DateTime.now().year,
+    year: 0,
     notes: '',
   );
 
@@ -85,12 +89,18 @@ class _HomeState extends State<Home> {
   }
 
   @override
+  void initState() {
+    stream = getBirdthaysSortedAndFilteredStream(filter);
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
     final strings = appStrings(context);
     final currentIndex = indexes.last;
 
     Widget body = BirthdaysListView(
-      filter: filter,
+      stream: stream,
     );
 
     if (currentIndex == 1) {

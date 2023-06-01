@@ -28,6 +28,8 @@ class BirthdayCard extends StatelessWidget {
 
     final isToday = nextBirthday.day == now.day && nextBirthday.month == now.month && nextBirthday.year == now.year;
 
+    final screenWidth = MediaQuery.of(context).size.width;
+
     return Card(
       child: InkWell(
         onTap: () {
@@ -40,9 +42,13 @@ class BirthdayCard extends StatelessWidget {
           padding: const EdgeInsets.all(20),
           child: Row(
             children: [
-              Text(
-                birthday.personName,
-                style: Theme.of(context).textTheme.bodyLarge,
+              ConstrainedBox(
+                constraints: BoxConstraints(maxWidth: screenWidth - 201),
+                child: Text(
+                  birthday.personName,
+                  overflow: TextOverflow.ellipsis,
+                  style: Theme.of(context).textTheme.bodyLarge,
+                ),
               ),
               if (birthday.nextAge() != null) ...[
                 const SizedBox(
