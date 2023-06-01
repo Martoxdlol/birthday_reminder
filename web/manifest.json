@@ -1,11 +1,11 @@
 {
-    "name": "birthday_reminder",
-    "short_name": "birthday_reminder",
+    "name": "Birthday Reminder",
+    "short_name": "Birthday Reminder",
     "start_url": ".",
     "display": "standalone",
-    "background_color": "#0175C2",
-    "theme_color": "#0175C2",
-    "description": "A new Flutter project.",
+    "background_color": "#FFFFFF",
+    "theme_color": "#2196F3",
+    "description": "Birthday Reminder APP",
     "orientation": "portrait-primary",
     "prefer_related_applications": false,
     "icons": [

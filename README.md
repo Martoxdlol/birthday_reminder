@@ -53,3 +53,5 @@ Go to Firebase: project settings > your apps > choose android app and add signat
 The app is using [flutter internationalization](https://docs.flutter.dev/development/accessibility-and-localization/internationalization)
 
 To generate dart lib use `flutter gen-l10n`
+
+To generate icons use `flutter pub run flutter_launcher_icons`

@@ -29,7 +29,7 @@
     <!-- Favicon -->
     <link rel="icon" type="image/png" href="favicon.png" />
 
-    <title>birthday_reminder</title>
+    <title>Birthday Reminder</title>
     <link rel="manifest" href="manifest.json" />
 
     <script>
@@ -38,6 +38,18 @@
     </script>
     <!-- This script adds the flutter initialization JS code -->
     <script src="flutter.js" defer></script>
+
+    <script>
+      const lang = window.navigator.language?.split("-")[0];
+
+      if(lang == 'en') {
+        // document.title = "Birthday Reminder";
+      }
+
+      if(lang == 'es') {
+        // document.title = "Recordador de Cumpleaños";
+      } 
+    </script>
   </head>
   <body>
     <script>
