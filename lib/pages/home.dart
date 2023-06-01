@@ -1,5 +1,5 @@
-import 'package:birthday_reminder/layouts/add_new.dart';
-import 'package:birthday_reminder/layouts/birthdays_list.dart';
+import 'package:birthday_reminder/layouts/birthday_form_view.dart';
+import 'package:birthday_reminder/layouts/birthdays_list_view.dart';
 import 'package:birthday_reminder/layouts/settings_page.dart';
 import 'package:birthday_reminder/strings.dart';
 import 'package:birthday_reminder/widgets/confirm_dialog.dart';
@@ -19,7 +19,7 @@ class _HomeState extends State<Home> {
   List<int> indexes = [0];
   String filter = '';
 
-  var addBirthdayData = NewBirthdayData(
+  var addBirthdayData = BirthdayFormData(
     name: '',
     day: DateTime.now().day,
     month: DateTime.now().month,
@@ -60,7 +60,7 @@ class _HomeState extends State<Home> {
       });
 
       setState(() {
-        addBirthdayData = NewBirthdayData(
+        addBirthdayData = BirthdayFormData(
           name: '',
           day: DateTime.now().day,
           month: DateTime.now().month,
@@ -89,12 +89,12 @@ class _HomeState extends State<Home> {
     final strings = appStrings(context);
     final currentIndex = indexes.last;
 
-    Widget body = BirthdaysList(
+    Widget body = BirthdaysListView(
       filter: filter,
     );
 
     if (currentIndex == 1) {
-      body = NewBirthday(
+      body = BirthdayFormView(
         data: addBirthdayData,
         onDataChange: (data) {
           setState(() {
@@ -105,6 +105,12 @@ class _HomeState extends State<Home> {
     } else if (currentIndex == 2) {
       body = const SettingsPage();
     }
+
+    final titles = [
+      strings.mainPageTitle,
+      strings.addBirthday,
+      strings.settings,
+    ];
 
     return WillPopScope(
       onWillPop: () async {
@@ -118,6 +124,7 @@ class _HomeState extends State<Home> {
       },
       child: Scaffold(
         appBar: SearchAppBar(
+          title: Text(titles[currentIndex]),
           elevation: currentIndex == 2 ? 3.0 : null,
           searchEnabled: currentIndex == 0,
           onCancel: () {
@@ -131,14 +138,6 @@ class _HomeState extends State<Home> {
             });
           },
         ),
-        // appBar: AppBar(
-        //   title: Text(strings.mainPageTitle),
-        //   shadowColor: Colors.black26,
-        //   elevation: currentIndex == 2 ? 3.0 : null,
-        //   actions: [
-        //     IconButton(icon: Icon(Icons.search), onPressed: () {}),
-        //   ],
-        // ),
         floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
         floatingActionButton: currentIndex == 1
             ? FloatingActionButton.extended(

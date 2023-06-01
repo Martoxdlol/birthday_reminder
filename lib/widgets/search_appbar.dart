@@ -8,12 +8,14 @@ class SearchAppBar extends StatefulWidget implements PreferredSizeWidget {
     required this.onCancel,
     this.elevation,
     required this.searchEnabled,
+    required this.title,
   });
 
   final void Function(String query) onSearch;
   final void Function() onCancel;
   final double? elevation;
   final bool searchEnabled;
+  final Widget title;
 
   @override
   _SearchAppBarState createState() => _SearchAppBarState();
@@ -51,7 +53,7 @@ class _SearchAppBarState extends State<SearchAppBar> {
 
     if (!searching || !widget.searchEnabled) {
       return AppBar(
-        title: Text(strings.mainPageTitle),
+        title: widget.title,
         shadowColor: Colors.black26,
         elevation: widget.elevation,
         actions: [

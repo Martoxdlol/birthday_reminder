@@ -2,14 +2,14 @@ import 'package:birthday_reminder/strings.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class NewBirthdayData {
+class BirthdayFormData {
   final String name;
   final int day;
   final int month;
   final int year;
   final String notes;
 
-  NewBirthdayData({
+  BirthdayFormData({
     required this.name,
     required this.day,
     required this.month,
@@ -22,14 +22,14 @@ class NewBirthdayData {
     return "NewBirthdayData(name: $name, day: $day, month: $month, year: $year)";
   }
 
-  NewBirthdayData copyWith({
+  BirthdayFormData copyWith({
     String? name,
     int? day,
     int? month,
     int? year,
     String? notes,
   }) {
-    return NewBirthdayData(
+    return BirthdayFormData(
       name: name ?? this.name,
       day: day ?? this.day,
       month: month ?? this.month,
@@ -39,15 +39,15 @@ class NewBirthdayData {
   }
 }
 
-class NewBirthday extends StatelessWidget {
-  const NewBirthday({
+class BirthdayFormView extends StatelessWidget {
+  const BirthdayFormView({
     super.key,
     required this.data,
     required this.onDataChange,
   });
 
-  final NewBirthdayData data;
-  final void Function(NewBirthdayData data) onDataChange;
+  final BirthdayFormData data;
+  final void Function(BirthdayFormData data) onDataChange;
 
   @override
   Widget build(BuildContext context) {
@@ -231,12 +231,12 @@ class _BirthYearPickerState extends State<BirthYearPicker> {
   Widget build(BuildContext context) {
     final strings = appStrings(context);
     return DropdownButtonFormField(
-      onChanged: (value) {},
+      onChanged: widget.onChanged,
       decoration: InputDecoration(
         filled: true,
         labelText: strings.year_of_birth,
       ),
-      value: 0,
+      value: widget.value,
       items: menuItems(context),
     );
   }

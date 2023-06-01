@@ -1,38 +1,38 @@
-import 'package:birthday_reminder/layouts/add_new.dart';
+import 'package:birthday_reminder/helpers/birthday.dart';
+import 'package:birthday_reminder/layouts/birthday_form_view.dart';
 import 'package:birthday_reminder/layouts/bottom_popup.dart';
 import 'package:birthday_reminder/strings.dart';
 import 'package:birthday_reminder/widgets/confirm_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class BirthdayView extends StatefulWidget {
   const BirthdayView({
     super.key,
-    required this.name,
-    required this.date,
-    required this.notes,
-    required this.noYear,
-    required this.id,
+    required this.birthday,
   });
 
-  final String name;
-  final DateTime date;
-  final String notes;
-  final bool noYear;
-  final String id;
+  final Birthday birthday;
 
   @override
   _BirthdayViewState createState() => _BirthdayViewState();
 }
 
 class _BirthdayViewState extends State<BirthdayView> {
-  NewBirthdayData? data;
+  BirthdayFormData? data;
+  int resetId = 0;
 
   void setInitialData() {
-    print(widget.noYear);
-    data = NewBirthdayData(
-        name: widget.name, day: widget.date.day, month: widget.date.month, year: widget.noYear ? 0 : widget.date.year, notes: widget.notes);
+    print(widget.birthday.noYear);
+    data = BirthdayFormData(
+      name: widget.birthday.personName,
+      day: widget.birthday.birth.day,
+      month: widget.birthday.birth.month,
+      year: widget.birthday.noYear ? 0 : widget.birthday.birth.year,
+      notes: widget.birthday.notes,
+    );
   }
 
   @override
@@ -43,17 +43,18 @@ class _BirthdayViewState extends State<BirthdayView> {
 
   void resetData() {
     setState(() {
+      resetId = resetId == 1 ? 0 : 1;
       setInitialData();
     });
   }
 
   bool get somethingChanged {
-    final year = widget.noYear ? 0 : widget.date.year;
-    if (widget.name != data?.name) return true;
-    if (widget.date.day != data?.day) return true;
-    if (widget.date.month != data?.month) return true;
+    final year = widget.birthday.noYear ? 0 : widget.birthday.birth.year;
+    if (widget.birthday.personName != data?.name) return true;
+    if (widget.birthday.birth.day != data?.day) return true;
+    if (widget.birthday.birth.month != data?.month) return true;
     if (year != data?.year) return true;
-    if (widget.notes != data?.notes) return true;
+    if (widget.birthday.notes != data?.notes) return true;
     return false;
   }
 
@@ -61,9 +62,11 @@ class _BirthdayViewState extends State<BirthdayView> {
     final data = this.data;
     if (data == null) return;
 
-    await FirebaseFirestore.instance.collection('birthdays').doc(widget.id).update({
-      "birth": DateTime(data.year, data.month, data.day),
-      "noYear": data.year == 0,
+    final noYear = data.year == 0;
+
+    await FirebaseFirestore.instance.collection('birthdays').doc(widget.birthday.id).update({
+      "birth": DateTime(noYear ? 2000 : data.year, data.month, data.day),
+      "noYear": noYear,
       "notes": data.notes,
       "owner": FirebaseAuth.instance.currentUser!.uid,
       "personName": data.name,
@@ -84,7 +87,7 @@ class _BirthdayViewState extends State<BirthdayView> {
       },
       child: Scaffold(
         appBar: AppBar(
-          title: Text(somethingChanged ? strings.editing : (data?.name ?? widget.name)),
+          title: Text(somethingChanged ? strings.editing : (data?.name ?? widget.birthday.personName)),
           actions: [
             IconButton(
               onPressed: () async {
@@ -92,11 +95,11 @@ class _BirthdayViewState extends State<BirthdayView> {
                   context,
                   onInput: (result) {},
                   title: Text(strings.are_you_sure),
-                  content: Text("Se eliminará el cumpleaños de ${data?.name ?? widget.name}."),
+                  content: Text("Se eliminará el cumpleaños de ${data?.name ?? widget.birthday.personName}."),
                 );
 
                 if (result) {
-                  FirebaseFirestore.instance.collection('birthdays').doc(widget.id).delete();
+                  FirebaseFirestore.instance.collection('birthdays').doc(widget.birthday.id).delete();
                   Navigator.of(context).pop();
                 }
               },
@@ -107,7 +110,8 @@ class _BirthdayViewState extends State<BirthdayView> {
         ),
         primary: true,
         body: data != null
-            ? NewBirthday(
+            ? BirthdayFormView(
+                key: Key('reset-$resetId'),
                 data: data!,
                 onDataChange: (data) {
                   setState(() {
@@ -126,8 +130,9 @@ class _BirthdayViewState extends State<BirthdayView> {
                 save().then((value) {}).catchError((error) {
                   confirm(context,
                       title: Text(strings.error_ocurred),
+                      acceptOnly: true,
                       onInput: (result) {},
-                      content: const Text("No se pudo guardar el cumpleaños. Intentelo mas tarde,"));
+                      content: Text("No se pudo guardar el cumpleaños. Intentelo mas tarde.${kDebugMode ? '\n\n$error' : ''}"));
                 });
               }
             } else {
@@ -157,21 +162,13 @@ class _BirthdayViewState extends State<BirthdayView> {
 
 void showBirthdayView(
   BuildContext context, {
-  required DateTime date,
-  required String notes,
-  required String name,
-  required bool noYear,
-  required String id,
+  required Birthday birthday,
 }) {
   Navigator.of(context).push(
     BottomPopupRoute(
       height: 470,
       builder: (context) => BirthdayView(
-        name: name,
-        date: date,
-        notes: notes,
-        noYear: noYear,
-        id: id,
+        birthday: birthday,
       ),
     ),
   );

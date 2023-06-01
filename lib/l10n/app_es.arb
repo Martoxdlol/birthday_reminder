@@ -28,5 +28,6 @@
     "turns": "cumple",
     "years": "años",
     "days": "días",
-    "in_word": "en"
+    "in_word": "en",
+    "today": "hoy"
 }
