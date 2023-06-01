@@ -1,3 +1,4 @@
+import 'package:birthday_reminder/strings.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:settings_ui/settings_ui.dart';
@@ -13,23 +14,26 @@ class _SettingsPageState extends State<SettingsPage> {
   @override
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser;
+    final strings = appStrings(context);
 
     return SettingsList(
-      lightTheme: SettingsThemeData(settingsListBackground: Colors.transparent),
-      darkTheme: SettingsThemeData(settingsListBackground: Colors.transparent),
+      applicationType: ApplicationType.material,
+      platform: DevicePlatform.android,
+      lightTheme: const SettingsThemeData(settingsListBackground: Colors.transparent),
+      darkTheme: const SettingsThemeData(settingsListBackground: Colors.transparent),
       sections: [
         SettingsSection(
-          title: Text('Account'),
+          title: Text(strings.account),
           tiles: <SettingsTile>[
             SettingsTile.navigation(
-              leading: Icon(Icons.account_circle_rounded),
+              leading: const Icon(Icons.account_circle_rounded),
               onPressed: (context) {},
               title: Text(user?.displayName ?? user?.email ?? 'Anonymous'),
               value: Text(user?.email ?? ''),
             ),
             SettingsTile.navigation(
-              leading: Icon(Icons.exit_to_app_rounded),
-              title: Text('Sign out'),
+              leading: const Icon(Icons.exit_to_app_rounded),
+              title: Text(strings.sign_out),
               onPressed: (context) {
                 FirebaseAuth.instance.signOut();
               },

@@ -7,7 +7,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class BirthdayView extends StatefulWidget {
-  BirthdayView({
+  const BirthdayView({
     super.key,
     required this.name,
     required this.date,
@@ -30,6 +30,7 @@ class _BirthdayViewState extends State<BirthdayView> {
   NewBirthdayData? data;
 
   void setInitialData() {
+    print(widget.noYear);
     data = NewBirthdayData(
         name: widget.name, day: widget.date.day, month: widget.date.month, year: widget.noYear ? 0 : widget.date.year, notes: widget.notes);
   }
@@ -47,10 +48,11 @@ class _BirthdayViewState extends State<BirthdayView> {
   }
 
   bool get somethingChanged {
+    final year = widget.noYear ? 0 : widget.date.year;
     if (widget.name != data?.name) return true;
     if (widget.date.day != data?.day) return true;
     if (widget.date.month != data?.month) return true;
-    if (widget.noYear != (data?.year == 0)) return true;
+    if (year != data?.year) return true;
     if (widget.notes != data?.notes) return true;
     return false;
   }
@@ -98,10 +100,10 @@ class _BirthdayViewState extends State<BirthdayView> {
                   Navigator.of(context).pop();
                 }
               },
-              icon: Icon(Icons.delete_forever_rounded),
+              icon: const Icon(Icons.delete_forever_rounded),
             ),
           ],
-          leading: somethingChanged ? Icon(Icons.edit) : null,
+          leading: somethingChanged ? const Icon(Icons.edit) : null,
         ),
         primary: true,
         body: data != null
@@ -125,7 +127,7 @@ class _BirthdayViewState extends State<BirthdayView> {
                   confirm(context,
                       title: Text(strings.error_ocurred),
                       onInput: (result) {},
-                      content: Text("No se pudo guardar el cumpleaños. Intentelo mas tarde,"));
+                      content: const Text("No se pudo guardar el cumpleaños. Intentelo mas tarde,"));
                 });
               }
             } else {

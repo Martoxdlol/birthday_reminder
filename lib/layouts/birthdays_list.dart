@@ -20,7 +20,7 @@ class BirthdaysList extends StatelessWidget {
       builder: (context, snapshot) {
         final birthdays = snapshot.data?.docs
             .map((e) => {
-                  ...(e.data() as Map),
+                  ...e.data(),
                   "id": e.id,
                 })
             .toList()
@@ -84,7 +84,7 @@ class BirthdaysList extends StatelessWidget {
         });
 
         if (snapshot.hasError) {
-          return Center(
+          return const Center(
             child: Icon(
               Icons.error_outline,
               color: Colors.red,
@@ -93,7 +93,7 @@ class BirthdaysList extends StatelessWidget {
         }
 
         if (birthdays == null) {
-          return Center(
+          return const Center(
             child: CircularProgressIndicator(),
           );
         }
@@ -104,7 +104,7 @@ class BirthdaysList extends StatelessWidget {
             final personName = birthdays[index]['personName'];
 
             if (birthdays[index]['birth'] is! Timestamp) {
-              return SizedBox.shrink();
+              return const SizedBox.shrink();
             }
 
             Timestamp birthTimestamp = birthdays[index]['birth'];

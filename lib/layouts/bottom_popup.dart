@@ -92,7 +92,7 @@ class BottomPopupRoute extends PageRoute {
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(16),
                 child: MediaQuery(
-                  data: mediaQueryData.copyWith(viewInsets: EdgeInsets.all(0), padding: mediaQueryData.padding.copyWith(top: 0)),
+                  data: mediaQueryData.copyWith(viewInsets: const EdgeInsets.all(0), padding: mediaQueryData.padding.copyWith(top: 0)),
                   child: builder(context),
                 ),
               ),

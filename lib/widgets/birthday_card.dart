@@ -53,7 +53,7 @@ class BirthdayCard extends StatelessWidget {
           child: Row(
             children: [
               Text(personName),
-              Expanded(child: SizedBox.shrink()),
+              const Expanded(child: SizedBox.shrink()),
               Text("${strings.in_word} $diff ${strings.days}"),
             ],
           ),

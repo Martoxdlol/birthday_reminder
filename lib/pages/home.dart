@@ -103,7 +103,7 @@ class _HomeState extends State<Home> {
         },
       );
     } else if (currentIndex == 2) {
-      body = SettingsPage();
+      body = const SettingsPage();
     }
 
     return WillPopScope(
@@ -143,7 +143,7 @@ class _HomeState extends State<Home> {
         floatingActionButton: currentIndex == 1
             ? FloatingActionButton.extended(
                 onPressed: saveBirthday,
-                icon: Icon(Icons.save_rounded),
+                icon: const Icon(Icons.save_rounded),
                 label: Text(strings.save),
               )
             : null,

@@ -14,10 +14,10 @@ class AppAuthWrapper extends StatelessWidget {
         final user = snapshot.data;
         if (user != null) {
           // User is signed in.
-          return Home();
+          return const Home();
         } else {
           // User is not signed in.
-          return LoginPage();
+          return const LoginPage();
         }
       },
     );

@@ -23,6 +23,8 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
         useMaterial3: true,
+        visualDensity: const VisualDensity(horizontal: 2, vertical: 1),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
       ),
       home: Builder(
         builder: (context) => const AppAuthWrapper(),

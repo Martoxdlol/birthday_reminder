@@ -57,7 +57,7 @@ class _SearchAppBarState extends State<SearchAppBar> {
         actions: [
           if (widget.searchEnabled)
             IconButton(
-                icon: Icon(Icons.search),
+                icon: const Icon(Icons.search),
                 onPressed: () {
                   setState(() {
                     searching = true;
@@ -82,7 +82,7 @@ class _SearchAppBarState extends State<SearchAppBar> {
       shadowColor: Colors.black26,
       actions: [
         IconButton(
-          icon: Icon(Icons.close_rounded),
+          icon: const Icon(Icons.close_rounded),
           onPressed: _onCancel,
         ),
       ],

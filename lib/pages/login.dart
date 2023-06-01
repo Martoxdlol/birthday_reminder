@@ -31,14 +31,14 @@ class LoginPage extends StatelessWidget {
         ]),
       ),
       Container(
-        padding: EdgeInsets.all(26),
+        padding: const EdgeInsets.all(26),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
               strings.signIn,
-              style: TextStyle(fontSize: 22),
+              style: const TextStyle(fontSize: 22),
             ),
             const SizedBox(
               height: 10,
@@ -73,10 +73,10 @@ class LoginPage extends StatelessWidget {
         left: 0,
         right: 0,
         child: Container(
-          child: Padding(
+          child: const Padding(
             padding: EdgeInsets.symmetric(horizontal: 22, vertical: 14),
             child: Row(
-              children: const [
+              children: [
                 Text("Privacy policy"),
                 SizedBox(width: 22),
                 Text("Contact"),
@@ -91,7 +91,7 @@ class LoginPage extends StatelessWidget {
 
     if (height < 450) {
       body = SingleChildScrollView(
-        child: Container(
+        child: SizedBox(
           height: 450,
           child: body,
         ),
@@ -116,7 +116,7 @@ class SigninWithButton extends StatelessWidget {
       // ),
       onPressed: () {},
       icon: Image.network('http://pngimg.com/uploads/google/google_PNG19635.png', width: 30, fit: BoxFit.cover),
-      label: Text("Sigin With Google"),
+      label: const Text("Sigin With Google"),
     );
   }
 }

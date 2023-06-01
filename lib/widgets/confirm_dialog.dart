@@ -27,7 +27,7 @@ void showConfirmDialog(
           primary: true,
           body: SingleChildScrollView(
             child: Padding(
-              padding: EdgeInsets.all(16),
+              padding: const EdgeInsets.all(16),
               child: child,
             ),
           ),
@@ -38,9 +38,9 @@ void showConfirmDialog(
               onInput(true);
             },
             destinations: [
-              if (!acceptOnly) NavigationDestination(icon: const Icon(Icons.close), label: 'Cancelar'),
-              if (acceptOnly) SizedBox.shrink(),
-              NavigationDestination(icon: const Icon(Icons.check), label: 'Acpetar'),
+              if (!acceptOnly) const NavigationDestination(icon: Icon(Icons.close), label: 'Cancelar'),
+              if (acceptOnly) const SizedBox.shrink(),
+              const NavigationDestination(icon: Icon(Icons.check), label: 'Acpetar'),
             ],
           ),
         ),
