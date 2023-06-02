@@ -9,8 +9,7 @@ class DeviceRegistrationManager {
 
     if (user == null) return;
 
-    final usersPreferencesCollection = FirebaseFirestore.instance.collection('users_preferences');
-    final userPreferencesDocRef = usersPreferencesCollection.doc(user.uid);
+    final tokensCollection = FirebaseFirestore.instance.collection('fcm_tokens');
 
     final fcmToken = await FirebaseMessaging.instance.getToken();
 
@@ -18,30 +17,31 @@ class DeviceRegistrationManager {
       throw Exception('FCM token is null');
     }
 
-    await FirebaseFirestore.instance.runTransaction((transaction) async {
-      final userPreferencesFromFirebase = await transaction.get(userPreferencesDocRef);
-      final data = userPreferencesFromFirebase.exists ? userPreferencesFromFirebase.data() : null;
+    final tokenDocRef = tokensCollection.doc(fcmToken);
 
-      final preferences = data != null
-          ? UserPreferences(
-              fcmTokens: (data['fcm_tokens'] as List<dynamic>).map((e) => e.toString()).toList(), userId: userPreferencesFromFirebase.id)
-          : UserPreferences(userId: user.uid, fcmTokens: [fcmToken]);
-
-      final newData = {
-        'fcm_tokens': preferences.fcmTokens,
-        'updated_at': DateTime.now(),
-        'created_at': data?['created_at'] ?? DateTime.now(),
-      };
-
-      if (data != null) {
-        transaction.update(userPreferencesDocRef, newData);
-      } else {
-        transaction.set(userPreferencesDocRef, newData);
-      }
+    await tokenDocRef.set({
+      'user_id': user.uid,
+      'updated_at': DateTime.now(),
     });
   }
 
-  Future<void> unregisterDevice() async {}
+  Future<void> unregisterDevice() async {
+    final user = FirebaseAuth.instance.currentUser;
+
+    if (user == null) return;
+
+    final tokensCollection = FirebaseFirestore.instance.collection('fcm_tokens');
+
+    final fcmToken = await FirebaseMessaging.instance.getToken();
+
+    if (fcmToken == null) {
+      throw Exception('FCM token is null');
+    }
+
+    final tokenDocRef = tokensCollection.doc(fcmToken);
+
+    await tokenDocRef.delete();
+  }
 
   static final instance = DeviceRegistrationManager();
 }
