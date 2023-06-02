@@ -47,4 +47,7 @@ app.*.map.json
 /lib/firebase_options.dart
 /ios/Runner/GoogleService-Info.plist
 /android/app/google-services.json
-/.firebase
+
+# Firebase deploy
+.firebase
+*.cache
