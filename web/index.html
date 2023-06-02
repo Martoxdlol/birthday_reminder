@@ -40,16 +40,12 @@
     <script src="flutter.js" defer></script>
 
     <script>
-      const lang = window.navigator.language?.split("-")[0];
-
-      if(lang == 'en') {
-        // document.title = "Birthday Reminder";
+      if ("serviceWorker" in navigator) {
+        window.addEventListener("load", function () {
+          navigator.serviceWorker.register("/firebase-messaging-sw.js");
+        });
       }
-
-      if(lang == 'es') {
-        // document.title = "Recordador de Cumpleaños";
-      } 
-    </script>
+      </script>
   </head>
   <body>
     <script>

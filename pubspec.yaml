@@ -24,6 +24,11 @@ dependencies:
   carousel_slider: ^4.2.1
   modal_bottom_sheet: ^2.1.2
   universal_html: ^2.2.3
+  firebase_messaging: ^14.6.2
+  firebase_notifications_handler: ^1.1.0
+  app_settings: ^4.2.0
+  shared_preferences: ^2.1.1
+  uuid: ^3.0.7
 
 dev_dependencies:
   change_app_package_name: ^1.1.0

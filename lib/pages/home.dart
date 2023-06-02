@@ -5,8 +5,10 @@ import 'package:birthday_reminder/layouts/birthdays_list_view.dart';
 import 'package:birthday_reminder/layouts/settings_page.dart';
 import 'package:birthday_reminder/strings.dart';
 import 'package:birthday_reminder/widgets/confirm_dialog.dart';
+import 'package:birthday_reminder/widgets/request_notification_card.dart';
 import 'package:birthday_reminder/widgets/search_appbar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -100,6 +102,7 @@ class _HomeState extends State<Home> {
     final currentIndex = indexes.last;
 
     Widget body = BirthdaysListView(
+      insertChildren: filter == "" ? [RequestNotificationCard()] : [],
       stream: stream,
     );
 

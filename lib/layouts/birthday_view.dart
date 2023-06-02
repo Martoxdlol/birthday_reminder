@@ -166,7 +166,7 @@ void showBirthdayView(
 }) {
   Navigator.of(context).push(
     BottomPopupRoute(
-      height: 470,
+      height: 474,
       builder: (context) => BirthdayView(
         birthday: birthday,
       ),

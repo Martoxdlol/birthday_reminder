@@ -1,5 +1,6 @@
 import 'package:birthday_reminder/auth_wrapper.dart';
 import 'package:birthday_reminder/firebase_options.dart';
+import 'package:birthday_reminder/helpers/device_registration.dart';
 import 'package:birthday_reminder/strings.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
