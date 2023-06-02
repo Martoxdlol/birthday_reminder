@@ -1,3 +1,4 @@
+import 'package:birthday_reminder/data.dart';
 import 'package:birthday_reminder/helpers/birthday.dart';
 import 'package:birthday_reminder/widgets/birthday_card.dart';
 import 'package:flutter/material.dart';
@@ -7,8 +8,11 @@ class BirthdaysListView extends StatefulWidget {
     super.key,
     required this.stream,
     required this.insertChildren,
+    this.filter,
   });
   final Stream<List<Birthday>> stream;
+
+  final String? filter;
 
   final List<Widget> insertChildren;
 
@@ -39,8 +43,10 @@ class _BirthdaysListViewState extends State<BirthdaysListView> {
           );
         }
 
+        final filteredBirthdays = widget.filter == null ? birthdays : filterBirthdays(birthdays, widget.filter!).toList();
+
         return ListView.builder(
-          itemCount: birthdays.length + widget.insertChildren.length,
+          itemCount: filteredBirthdays.length + widget.insertChildren.length,
           itemBuilder: (context, index) {
             final birthdayIndex = index - widget.insertChildren.length;
 
@@ -48,7 +54,7 @@ class _BirthdaysListViewState extends State<BirthdaysListView> {
               return widget.insertChildren[index];
             }
 
-            final birthday = birthdays[birthdayIndex];
+            final birthday = filteredBirthdays[birthdayIndex];
 
             return Padding(
               padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),

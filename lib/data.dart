@@ -5,16 +5,14 @@ import 'package:firebase_auth/firebase_auth.dart';
 
 typedef FirestoreCollectionSnapshotStream = Stream<QuerySnapshot<Map<String, dynamic>>>;
 
-FirestoreCollectionSnapshotStream getBirthdaysStream() {
+FirestoreCollectionSnapshotStream getBirthdaysFirestoreSnapshotStream() {
   return FirebaseFirestore.instance.collection('birthdays').where('owner', isEqualTo: FirebaseAuth.instance.currentUser?.uid).snapshots();
 }
 
-Stream<List<Birthday>> getBirdthaysSortedAndFilteredStream(String filter) {
-  final originalStream = getBirthdaysStream();
-
+Stream<List<Birthday>> getBirthdaysStream() {
+  final originalStream = getBirthdaysFirestoreSnapshotStream();
   final birthdaysStraem = streamMapper(originalStream);
-  final unfilteredStream = streamFilter(birthdaysStraem, filter);
-  final stream = streamSort(unfilteredStream);
+  final stream = streamSort(birthdaysStraem);
 
   return stream;
 }
@@ -30,14 +28,12 @@ Stream<Iterable<Birthday>> streamMapper(Stream<QuerySnapshot<Map<String, dynamic
   );
 }
 
-Stream<Iterable<Birthday>> streamFilter(Stream<Iterable<Birthday>> stream, String filter) {
+Iterable<Birthday> filterBirthdays(Iterable<Birthday> birthdays, String filter) {
   final filterLower = removeDiacritics(filter.toLowerCase()).trim();
 
-  return stream.map(
-    (birthdays) => birthdays.where((birthday) {
-      return removeDiacritics(birthday.personName).toLowerCase().contains(filterLower);
-    }),
-  );
+  return birthdays.where((birthday) {
+    return removeDiacritics(birthday.personName).toLowerCase().contains(filterLower);
+  });
 }
 
 Stream<List<Birthday>> streamSort(Stream<Iterable<Birthday>> stream) {

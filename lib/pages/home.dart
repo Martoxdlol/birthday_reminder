@@ -92,7 +92,7 @@ class _HomeState extends State<Home> {
 
   @override
   void initState() {
-    stream = getBirdthaysSortedAndFilteredStream(filter);
+    stream = getBirthdaysStream();
     super.initState();
   }
 
@@ -102,7 +102,8 @@ class _HomeState extends State<Home> {
     final currentIndex = indexes.last;
 
     Widget body = BirthdaysListView(
-      insertChildren: filter == "" ? [RequestNotificationCard()] : [],
+      insertChildren: filter == "" ? [const RequestNotificationCard()] : [],
+      filter: filter,
       stream: stream,
     );
 
