@@ -34,6 +34,12 @@ Locale? obtainWebLocale() {
   if (!kIsWeb) return null;
   try {
     final fullLang = html.window.navigator.language;
+
+    // ignore: unnecessary_null_comparison
+    if (fullLang == null) {
+      return null;
+    }
+
     final splitted = fullLang.split('-');
     final lang = splitted[0];
     final country = splitted.length == 2 ? splitted[1] : null;
