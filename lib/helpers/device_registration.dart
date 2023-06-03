@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:birthday_reminder/util.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -32,6 +34,7 @@ class DeviceRegistrationManager {
       'lang': locale.languageCode,
       'country': locale.countryCode,
       'enable_notifications': true,
+      "platform": kIsWeb ? 'web' : Platform.operatingSystem,
     });
   }
 
