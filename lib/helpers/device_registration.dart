@@ -2,6 +2,7 @@ import 'package:birthday_reminder/util.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
+import 'package:flutter/foundation.dart';
 
 class DeviceRegistrationManager {
   Future<void> registerDevice() async {
@@ -20,6 +21,10 @@ class DeviceRegistrationManager {
     final tokenDocRef = tokensCollection.doc(fcmToken);
 
     final locale = obtainLocale();
+
+    if (kDebugMode) {
+      print("FCM token: $fcmToken");
+    }
 
     await tokenDocRef.set({
       'user_id': user.uid,
