@@ -1,3 +1,9 @@
+import 'dart:io';
+
+import 'package:flutter/foundation.dart';
+import 'package:flutter/material.dart';
+import "package:universal_html/html.dart" as html;
+
 String removeDiacritics(String str) {
   var withDia = 'ÀÁÂÃÄÅàáâãäåÒÓÔÕÕÖØòóôõöøÈÉÊËèéêëðÇçÐÌÍÎÏìíîïÙÚÛÜùúûüÑñŠšŸÿýŽž';
   var withoutDia = 'AAAAAAaaaaaaOOOOOOOooooooEEEEeeeeeCcDIIIIiiiiUUUUuuuuNnSsYyyZz';
@@ -7,4 +13,39 @@ String removeDiacritics(String str) {
   }
 
   return str;
+}
+
+const defaultLocale = Locale('en');
+
+Locale obtainLocale() {
+  if (kIsWeb) {
+    return obtainWebLocale() ?? defaultLocale;
+  }
+
+  final platformLocale = Platform.localeName.split('.')[0];
+  final splitted = platformLocale.split('_');
+
+  return Locale(splitted[0], splitted.length == 2 ? splitted[1] : null);
+}
+
+Locale? obtainWebLocale() {
+  if (!kIsWeb) return null;
+  try {
+    final fullLang = html.window.navigator.language;
+    final splitted = fullLang.split('-');
+    final lang = splitted[0];
+    final country = splitted.length == 2 ? splitted[1] : null;
+
+    return Locale(lang, country);
+  } catch (e) {
+    return null;
+  }
+}
+
+void setWebLocale(Locale locale) {
+  try {
+    html.window.document.querySelector('html')?.setAttribute('lang', locale.languageCode);
+  } catch (e) {
+    if (kDebugMode) print(e);
+  }
 }

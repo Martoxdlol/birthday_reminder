@@ -1,4 +1,4 @@
-import 'package:birthday_reminder/helpers/user_preferences.dart';
+import 'package:birthday_reminder/util.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -19,9 +19,14 @@ class DeviceRegistrationManager {
 
     final tokenDocRef = tokensCollection.doc(fcmToken);
 
+    final locale = obtainLocale();
+
     await tokenDocRef.set({
       'user_id': user.uid,
       'updated_at': DateTime.now(),
+      'lang': locale.languageCode,
+      'country': locale.countryCode,
+      'enable_notifications': true,
     });
   }
 
