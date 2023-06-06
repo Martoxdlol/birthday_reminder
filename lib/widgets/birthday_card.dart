@@ -30,6 +30,16 @@ class BirthdayCard extends StatelessWidget {
 
     final screenWidth = MediaQuery.of(context).size.width;
 
+    final difference = birthday.durationToNextBirthday();
+
+    final inDays = (difference.inMilliseconds / 1000 / 60 / 60 / 24).ceil();
+
+    String label = "${strings.in_word} $inDays ${strings.days}";
+
+    if (inDays == 1) {
+      label = strings.tomorrow;
+    }
+
     return Card(
       child: InkWell(
         onTap: () {
@@ -78,7 +88,7 @@ class BirthdayCard extends StatelessWidget {
                         ),
                       ]
                     : [
-                        Text("${strings.in_word} ${birthday.daysToNextBirthday()} ${strings.days}"),
+                        Text(label),
                         Text(
                           DateFormat(formatter).format(nextBirthday),
                           style: Theme.of(context).textTheme.labelSmall,

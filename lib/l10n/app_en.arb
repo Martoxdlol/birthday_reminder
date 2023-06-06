@@ -30,5 +30,6 @@
     "days": "days",
     "in_word": "in",
     "addBirthday": "Add birthday",
-    "today": "Today"
+    "today": "Today",
+    "tomorrow": "Tomorrow"
 }

@@ -88,12 +88,10 @@ class Birthday {
     return nextBirthday;
   }
 
-  int daysToNextBirthday({DateTime? from}) {
+  Duration durationToNextBirthday({DateTime? from}) {
     final now = from ?? DateTime.now();
 
-    final difference = nextBirthday(from: from).difference(now);
-
-    return difference.inDays;
+    return nextBirthday(from: from).difference(now);
   }
 
   int? nextAge({DateTime? from}) {

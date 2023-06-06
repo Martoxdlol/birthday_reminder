@@ -8,6 +8,7 @@ import 'package:birthday_reminder/widgets/confirm_dialog.dart';
 import 'package:birthday_reminder/widgets/request_notification_card.dart';
 import 'package:birthday_reminder/widgets/search_appbar.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -34,7 +35,7 @@ class _HomeState extends State<Home> {
 
   Future<void> saveBirthday() async {
     final date = DateTime(
-      addBirthdayData.year,
+      addBirthdayData.year == 0 ? 2000 : addBirthdayData.year,
       addBirthdayData.month,
       addBirthdayData.day,
     );
@@ -69,11 +70,12 @@ class _HomeState extends State<Home> {
           name: '',
           day: DateTime.now().day,
           month: DateTime.now().month,
-          year: DateTime.now().year,
+          year: 0,
           notes: '',
         );
       });
     } catch (e) {
+      if (kDebugMode) print(e);
       confirm(
         context,
         onInput: (result) {
@@ -84,8 +86,14 @@ class _HomeState extends State<Home> {
           });
         },
         title: Text(strings.error_ocurred),
-        content: Text(strings.failed_to_save),
-      );
+        content: Text(strings.failed_to_save + (kDebugMode ? "\n$e" : "")),
+      ).then((value) {
+        if (!value) return;
+        setState(() {
+          if (indexes.last == 1) return;
+          indexes.add(1);
+        });
+      });
     }
   }
 

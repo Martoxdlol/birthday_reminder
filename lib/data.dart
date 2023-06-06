@@ -39,7 +39,7 @@ Iterable<Birthday> filterBirthdays(Iterable<Birthday> birthdays, String filter) 
 Stream<List<Birthday>> streamSort(Stream<Iterable<Birthday>> stream) {
   return stream.map((birthdays) {
     final list = birthdays.toList();
-    list.sort((a, b) => a.daysToNextBirthday().compareTo(b.daysToNextBirthday()));
+    list.sort((a, b) => a.durationToNextBirthday().compareTo(b.durationToNextBirthday()));
     return list;
   });
 }

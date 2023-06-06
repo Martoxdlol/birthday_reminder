@@ -29,5 +29,6 @@
     "years": "años",
     "days": "días",
     "in_word": "en",
-    "today": "hoy"
+    "today": "hoy",
+    "tomorrow": "mañana"
 }
