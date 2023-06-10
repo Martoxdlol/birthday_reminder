@@ -30,5 +30,10 @@
     "days": "días",
     "in_word": "en",
     "today": "hoy",
-    "tomorrow": "mañana"
+    "tomorrow": "mañana",
+    "enbale_notifications": "Activar notificaciones",
+    "notification_time": "Horario de notificaciones",
+    "notifications": "Notificaciones",
+    "configure_notifications": "Configurar notificaciones",
+    "configure_notifications_description": "Configure el horario de notificaciones"
 }

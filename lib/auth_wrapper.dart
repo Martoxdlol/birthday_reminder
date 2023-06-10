@@ -1,11 +1,9 @@
 import 'dart:async';
 
-import 'package:birthday_reminder/helpers/device_registration.dart';
+import 'package:birthday_reminder/helpers/notifications_registration.dart';
 import 'package:birthday_reminder/pages/home.dart';
 import 'package:birthday_reminder/pages/login.dart';
-import 'package:birthday_reminder/util.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 class AppAuthWrapper extends StatefulWidget {
@@ -18,21 +16,8 @@ class AppAuthWrapper extends StatefulWidget {
 class _AppAuthWrapperState extends State<AppAuthWrapper> {
   late Stream<User?> stream;
 
-  User? lastUser;
-
   void listener(User? user) async {
-    final preventAskingPermissionOnWeb = kIsWeb && !(await getCanSendNotifications());
-    if (preventAskingPermissionOnWeb) return;
-
-    if (user == null) {
-      await DeviceRegistrationManager().unregisterDevice();
-    } else if (lastUser == null) {
-      await DeviceRegistrationManager().registerDevice();
-    } else if (lastUser != null && lastUser!.uid != user.uid) {
-      await DeviceRegistrationManager().unregisterDevice();
-      await DeviceRegistrationManager().registerDevice();
-    }
-    lastUser = user;
+    await NotificationsRegistration.instance.updateUserInformation();
   }
 
   StreamSubscription<User?>? subscription;

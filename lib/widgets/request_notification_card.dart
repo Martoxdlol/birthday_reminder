@@ -1,7 +1,5 @@
-import 'package:app_settings/app_settings.dart';
-import 'package:birthday_reminder/helpers/device_registration.dart';
+import 'package:birthday_reminder/helpers/notifications_registration.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -46,15 +44,10 @@ class _RequestNotificationCardState extends State<RequestNotificationCard> {
   }
 
   void accept() {
-    setState(() {
-      show = false;
-    });
-    FirebaseMessaging.instance.requestPermission().then((value) {
-      if (kIsWeb) {
-        DeviceRegistrationManager.instance.registerDevice();
-      } else if (value.authorizationStatus != AuthorizationStatus.authorized) {
-        AppSettings.openNotificationSettings();
-      }
+    NotificationsRegistration.instance.enableNotifications().then((value) {
+      setState(() {
+        show = !value;
+      });
     });
   }
 

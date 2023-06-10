@@ -1,7 +1,5 @@
-import 'dart:async';
 import 'dart:io';
 
-import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import "package:universal_html/html.dart" as html;
@@ -56,9 +54,4 @@ void setWebLocale(Locale locale) {
   } catch (e) {
     if (kDebugMode) print(e);
   }
-}
-
-Future<bool> getCanSendNotifications() async {
-  final settings = await FirebaseMessaging.instance.getNotificationSettings();
-  return settings.authorizationStatus == AuthorizationStatus.authorized;
 }

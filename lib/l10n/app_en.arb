@@ -31,5 +31,10 @@
     "in_word": "in",
     "addBirthday": "Add birthday",
     "today": "Today",
-    "tomorrow": "Tomorrow"
+    "tomorrow": "Tomorrow",
+    "enbale_notifications": "Enable notifications",
+    "notification_time": "Notification time",
+    "notifications": "Notifications",
+    "configure_notifications": "Configure notifications",
+    "configure_notifications_description": "Set at what time you want to receive notifications about upcoming birthdays."
 }
