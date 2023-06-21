@@ -35,6 +35,7 @@ Now you can run the app with flutter support using `flutter run`
 - In Powershell: `.\keytool -list -v -keystore $env:USERPROFILE/.android/debug.keystore -alias androiddebugkey -storepass android -keypass android`
 
 **On mac/linux**:
+
 - In the terminal: `keytool -list -v -keystore ~/.android/debug.keystore -alias androiddebugkey -storepass android -keypass android`
 
 **possible keytool paths in windows**:
@@ -52,7 +53,13 @@ Go to Firebase: project settings > your apps > choose android app and add signat
 
 You need to enable billing on your Google Cloud project to use Cloud Functions.
 
-[Service Accounts pane](https://console.cloud.google.com/iam-admin/serviceaccounts)
+You don't need to setup credentials, firebase emulators does it for you.
+
+**Just in case** [Service Accounts pane](https://console.cloud.google.com/iam-admin/serviceaccounts)
+
+To start local emulator run `cd functions/ && npm run serve`
+
+To run the function that sends notifications to all users locally start the local emulator and open on your browser `http://127.0.0.1:5001/birthday-remainder-app/us-central1/manually`. Note: the port may differ (may be different than 5001). This will send notification. Be careful, it will use the production database.
 
 ## Internationalization (multiple languages)
 
@@ -61,3 +68,9 @@ The app is using [flutter internationalization](https://docs.flutter.dev/develop
 To generate dart lib use `flutter gen-l10n`
 
 To generate icons use `flutter pub run flutter_launcher_icons`
+
+## Deploy app to firebase
+
+Just run in a CMD or terminal `firebase deploy`
+
+Note: if you are using powershell and it doesn't work, try with CMD (`cmd.exe` inside the powershell terminal).
