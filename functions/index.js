@@ -7,11 +7,11 @@ firebase.initializeApp()
 
 const firestore = firebase.firestore()
 
-exports.scheduledHourlyNotificationSendingTask = functions.pubsub.schedule('0 * * * *').onRun(async (context) => {
+exports.scheduledHourlyNotificationSendingTask = functions.runWith({ timeoutSeconds: '600' }).pubsub.schedule('0 * * * *').onRun(async (context) => {
     main()
 })
 
-exports.manually = functions.https.onRequest(async (request, response) => {
+exports.manually = functions.runWith({ timeoutSeconds: '600' }).https.onRequest(async (request, response) => {
     functions.logger.info("Manually function triggered", { structuredData: true });
 
     await main()
@@ -25,7 +25,7 @@ async function main() {
     for await (const { users, option, timezone } of getAllCurentUsers(config)) {
         for (const user of users) {
 
-            if(user.enable_notifications === false) {
+            if (user.enable_notifications === false) {
                 continue
             }
 
