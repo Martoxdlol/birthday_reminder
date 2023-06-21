@@ -7,11 +7,11 @@ firebase.initializeApp()
 
 const firestore = firebase.firestore()
 
-exports.scheduledHourlyNotificationSendingTask = functions.runWith({ timeoutSeconds: '600' }).pubsub.schedule('0 * * * *').onRun(async (context) => {
-    main()
+exports.scheduledHourlyNotificationSendingTask = functions.runWith({ timeoutSeconds: 540 }).pubsub.schedule('3 * * * *').onRun(async (context) => {
+    await main()
 })
 
-exports.manually = functions.runWith({ timeoutSeconds: '600' }).https.onRequest(async (request, response) => {
+exports.manually = functions.runWith({ timeoutSeconds: 540 }).https.onRequest(async (request, response) => {
     functions.logger.info("Manually function triggered", { structuredData: true });
 
     await main()
