@@ -48,7 +48,13 @@ Now you can run the app with flutter support using `flutter run`
 
 Go to Firebase: project settings > your apps > choose android app and add signature SHA
 
-## Util notes
+## Setup Cloud Functions (for scheduling notifications)
+
+You need to enable billing on your Google Cloud project to use Cloud Functions.
+
+[Service Accounts pane](https://console.cloud.google.com/iam-admin/serviceaccounts)
+
+## Internationalization (multiple languages)
 
 The app is using [flutter internationalization](https://docs.flutter.dev/development/accessibility-and-localization/internationalization)
 

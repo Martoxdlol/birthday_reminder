@@ -69,6 +69,10 @@ class Birthday {
   DateTime nextBirthday({DateTime? from}) {
     final now = from ?? DateTime.now().copyWith(hour: 0, minute: 0, second: 0, millisecond: 0);
 
+    if (now.month == birth.month && now.day == birth.day) {
+      return now;
+    }
+
     final thisYear = now.year;
 
     final nextBirthday = DateTime(

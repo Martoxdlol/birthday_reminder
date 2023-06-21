@@ -17,7 +17,7 @@ class BirthdayView extends StatefulWidget {
   final Birthday birthday;
 
   @override
-  _BirthdayViewState createState() => _BirthdayViewState();
+  State<BirthdayView> createState() => _BirthdayViewState();
 }
 
 class _BirthdayViewState extends State<BirthdayView> {
@@ -25,7 +25,6 @@ class _BirthdayViewState extends State<BirthdayView> {
   int resetId = 0;
 
   void setInitialData() {
-    print(widget.birthday.noYear);
     data = BirthdayFormData(
       name: widget.birthday.personName,
       day: widget.birthday.birth.day,
@@ -100,7 +99,9 @@ class _BirthdayViewState extends State<BirthdayView> {
 
                 if (result) {
                   FirebaseFirestore.instance.collection('birthdays').doc(widget.birthday.id).delete();
-                  Navigator.of(context).pop();
+                  if (mounted && Navigator.of(context).canPop()) {
+                    Navigator.of(context).pop();
+                  }
                 }
               },
               icon: const Icon(Icons.delete_forever_rounded),
