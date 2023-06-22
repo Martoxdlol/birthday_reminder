@@ -7,7 +7,7 @@ firebase.initializeApp()
 
 const firestore = firebase.firestore()
 
-exports.scheduledHourlyNotificationSendingTask = functions.runWith({ timeoutSeconds: 540 }).pubsub.schedule('0 * * * *').onRun(async (context) => {
+exports.scheduledHourlyNotificationSendingTask = functions.runWith({ timeoutSeconds: 540 }).pubsub.schedule('1 * * * *').onRun(async (context) => {
     await main()
 })
 
