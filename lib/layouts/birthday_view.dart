@@ -3,6 +3,7 @@ import 'package:birthday_reminder/layouts/birthday_form_view.dart';
 import 'package:birthday_reminder/layouts/bottom_popup.dart';
 import 'package:birthday_reminder/strings.dart';
 import 'package:birthday_reminder/widgets/confirm_dialog.dart';
+import 'package:birthday_reminder/widgets/share_modal.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
@@ -138,7 +139,7 @@ class _BirthdayViewState extends State<BirthdayView> {
               }
             } else {
               if (i == 0) {
-                // Share
+                showShareModal(context);
               } else if (i == 1) {
                 Navigator.of(context).pop();
               }

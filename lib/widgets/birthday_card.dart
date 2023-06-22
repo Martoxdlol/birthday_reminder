@@ -40,6 +40,9 @@ class BirthdayCard extends StatelessWidget {
       label = strings.tomorrow;
     }
 
+    final Locale locale = Localizations.localeOf(context);
+    final languageCode = locale.languageCode;
+
     return Card(
       child: InkWell(
         onTap: () {
@@ -90,7 +93,7 @@ class BirthdayCard extends StatelessWidget {
                     : [
                         Text(label),
                         Text(
-                          DateFormat(formatter).format(nextBirthday),
+                          DateFormat(formatter, languageCode).format(nextBirthday),
                           style: Theme.of(context).textTheme.labelSmall,
                         ),
                       ],

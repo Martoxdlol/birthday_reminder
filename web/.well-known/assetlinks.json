@@ -1,0 +1,18 @@
+[
+    {
+        "relation": [
+            "delegate_permission/common.handle_all_urls"
+        ],
+        "target": {
+            "namespace": "android_app",
+            "package_name": "net.tomascichero.birthdayremainder",
+            "sha256_cert_fingerprints": [
+                "1c:0e:3b:df:f0:b1:4d:ab:ad:86:ff:2d:2f:43:9c:0c:bd:74:5e:37:ae:f8:4e:7d:a9:11:d2:ee:fb:e2:18:b2",
+                "66:fa:b2:a1:f0:e4:27:e1:d7:f5:24:7c:ff:8e:37:62:2c:00:79:55:20:45:21:bd:a2:fb:78:d8:04:9f:79:10",
+                "c0:eb:e1:5b:57:2f:c2:55:af:63:53:54:2a:3a:d0:7b:ce:96:26:96:9e:61:8b:34:87:67:1e:51:7f:30:14:2a",
+                "3b:25:97:a5:f7:60:c3:0b:d8:99:be:8d:27:34:75:b5:86:ac:82:36:3a:01:1c:b9:04:23:e5:dd:ce:56:3b:3d",
+                "fa:57:fd:4f:49:50:87:2c:8b:b0:55:1e:60:14:fa:bb:a9:f1:7d:80:67:65:a8:9e:6b:a5:65:a7:cd:0d:ce:38"
+            ]
+        }
+    }
+]

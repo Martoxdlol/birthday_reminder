@@ -22,7 +22,8 @@ Steps
 - Run `dart pub get`
 - Run `firebase use --add` and choose your project and use `default` as alias name
 - Set configure SHA hash on your firebase project (see below)
-- **Optional** Change package name. You can use [change_app_package_name](https://pub.dev/packages/change_app_package_name) package. ([More info here](https://stackoverflow.com/questions/51534616/how-to-change-package-name-in-flutter)).
+- **Optional** Change package name. You can use [change_app_package_name](https://pub.dev/packages/change_app_package_name) package. ([More info here](https://stackoverflow.com/questions/51534616/how-to-change-package-name-in-flutter)). 
+  Also change the package name in `web/.well-known/assetlinks.json`
 - run `flutterfire configure` and confirm for all platforms
 
 Now you can run the app with flutter support using `flutter run`

@@ -25,13 +25,11 @@
                 android:value="true"
             />
             <intent-filter android:autoVerify="true">
-                <data
-                    android:scheme="https"
-                    android:host="birthday-remainder-app.web.app"
-                />
                 <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.BROWSABLE" />
                 <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <data android:scheme="http" android:host="birthday-remainder-app.web.app" />
+                <data android:scheme="https" />
             </intent-filter>
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
