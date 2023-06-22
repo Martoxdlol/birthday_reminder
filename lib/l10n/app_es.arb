@@ -35,5 +35,8 @@
     "notification_time": "Horario de notificaciones",
     "notifications": "Notificaciones",
     "configure_notifications": "Configurar notificaciones",
-    "configure_notifications_description": "Configure el horario de notificaciones"
+    "configure_notifications_description": "Configure el horario de notificaciones",
+    "privacy_policy": "Política de privacidad",
+    "terms_of_use": "Términos de uso",
+    "play_store": "Play Store"
 }

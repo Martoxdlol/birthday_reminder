@@ -36,5 +36,8 @@
     "notification_time": "Notification time",
     "notifications": "Notifications",
     "configure_notifications": "Configure notifications",
-    "configure_notifications_description": "Set at what time you want to receive notifications about upcoming birthdays."
+    "configure_notifications_description": "Set at what time you want to receive notifications about upcoming birthdays.",
+    "privacy_policy": "Privacy policy",
+    "terms_of_use": "Terms of use",
+    "play_store": "Play Store"
 }

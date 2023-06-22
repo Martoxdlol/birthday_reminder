@@ -1,4 +1,5 @@
 import 'package:birthday_reminder/strings.dart';
+import 'package:birthday_reminder/widgets/hyperlink.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -57,14 +58,6 @@ class LoginPage extends StatelessWidget {
                 },
               ),
             ),
-            // SizedBox(
-            //   width: double.infinity,
-            //   child: SignInButton(
-            //     Buttons.Apple,
-            //     text: "Sign up with Apple",
-            //     onPressed: () {},
-            //   ),
-            // )
           ],
         ),
       ),
@@ -73,15 +66,24 @@ class LoginPage extends StatelessWidget {
         left: 0,
         right: 0,
         child: Container(
-          child: const Padding(
+          child: Padding(
             padding: EdgeInsets.symmetric(horizontal: 22, vertical: 14),
             child: Row(
               children: [
-                Text("Privacy policy"),
-                SizedBox(width: 22),
-                Text("Contact"),
-                SizedBox(width: 22),
-                Text("Play Store"),
+                Hyperlink(
+                  url: "https://www.google.com",
+                  child: Text(strings.terms_of_use),
+                ),
+                const SizedBox(width: 22),
+                Hyperlink(
+                  url: "https://www.google.com",
+                  child: Text(strings.privacy_policy),
+                ),
+                const SizedBox(width: 22),
+                Hyperlink(
+                  url: "https://play.google.com/store/apps/details?id=net.tomascichero.birthdayremainder",
+                  child: Text(strings.play_store),
+                ),
               ],
             ),
           ),

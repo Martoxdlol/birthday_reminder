@@ -10,6 +10,9 @@
       "**/.*",
       "**/node_modules/**"
     ],
+    "i18n": {
+      "root": "/docs"
+    },
     "rewrites": [
       {
         "source": "**",

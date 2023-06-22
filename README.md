@@ -60,7 +60,7 @@ You don't need to setup credentials, firebase emulators does it for you.
 
 To start local emulator run `cd functions/ && npm run serve`
 
-To run the function that sends notifications to all users locally start the local emulator and open on your browser `http://127.0.0.1:5001/birthday-remainder-app/us-central1/manually`. Note: the port may differ (may be different than 5001). This will send notification. Be careful, it will use the production database.
+To run the function that sends notifications to all users locally start the local emulator and open on your browser `http://127.0.0.1:5000/birthday-remainder-app/us-central1/manually`. Note: the port may differ (may be different than 5000). This will send notification. Be careful, it will use the production database.
 
 ## Internationalization (multiple languages)
 
@@ -69,6 +69,12 @@ The app is using [flutter internationalization](https://docs.flutter.dev/develop
 To generate dart lib use `flutter gen-l10n`
 
 To generate icons use `flutter pub run flutter_launcher_icons`
+
+## Build app
+
+Run `flutter build apk` or `flutter build appbundle`
+
+For the web run `flutter build web --release --web-renderer canvaskit` (or just `flutter build web --release` if you want to use the default web renderer)
 
 ## Deploy app to firebase
 
