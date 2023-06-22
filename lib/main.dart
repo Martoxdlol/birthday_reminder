@@ -1,5 +1,6 @@
 import 'package:birthday_reminder/auth_wrapper.dart';
 import 'package:birthday_reminder/firebase_options.dart';
+import 'package:birthday_reminder/js_bindings.dart';
 import 'package:birthday_reminder/util.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
@@ -14,8 +15,21 @@ void main() async {
   runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  void initState() {
+    if (kIsWeb) {
+      appFinishedLoading();
+    }
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

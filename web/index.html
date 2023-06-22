@@ -39,13 +39,61 @@
     <!-- This script adds the flutter initialization JS code -->
     <script src="flutter.js" defer></script>
 
+    <style>
+      #loading {
+        z-index: 1;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        opacity: 1;
+        transition: 200ms;
+      }
+
+      #loading img {
+        animation: zoom 2s linear infinite;
+      }
+
+      @keyframes zoom {
+        0% {
+          width: 100px;
+          -webkit-filter: drop-shadow(2px 2px 2px #22222260);
+          filter: drop-shadow(2px 2px 2px #22222260);
+        }
+        50% {
+          width: 120px;
+          -webkit-filter: drop-shadow(5px 5px 5px #222);
+          filter: drop-shadow(5px 5px 5px #222);
+        }
+        100% {
+          width: 100px;
+          -webkit-filter: drop-shadow(2px 2px 2px #22222260);
+          filter: drop-shadow(2px 2px 2px #22222260);
+        }
+      }
+    </style>
+
+    <div id="loading">
+      <img src="icon-transparent.png" alt="App icon" />
+    </div>
+
+    <script>
+      function appFinishedLoading() {
+        const loadingIndicator = document.getElementById("loading");
+        loadingIndicator.style.opacity = "0";
+        setTimeout(() => {
+          loadingIndicator.style.display = "none";
+        }, 200);
+      }
+    </script>
+
     <script>
       if ("serviceWorker" in navigator) {
         window.addEventListener("load", function () {
           navigator.serviceWorker.register("/firebase-messaging-sw.js");
         });
       }
-      </script>
+    </script>
   </head>
   <body>
     <script>
