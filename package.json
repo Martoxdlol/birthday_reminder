@@ -11,7 +11,7 @@
     "build:app_web": "flutter build web --release --web-renderer canvaskit --base-href /app/",
     "build:docs": "cd docs && npm run build && cd .. && npm run copy-files",
     "build": "npm run build:app_web && npm run build:docs && npm run copy-files",
-    "copy-files": "npx -y copyfiles -u 2 -s docs/dist/**/* dist && npx -y copyfiles -u 2 -s build/web/**/* dist/app",
+    "copy-files": "npx -y copyfiles -u 2 docs/dist/**/* dist && npx -y copyfiles -u 2 build/web/**/* dist/app",
     "dev:docs": "cd docs && npm run dev",
     "dev:emulator": "firebase emulators:start --only hosting",
     "deploy": "npm run copy-files && firebase deploy"
