@@ -84,6 +84,8 @@ Run `npm run build` (see package.json)
 
 Run `firebase deploy --only hosting` to deploy to firebase hosting (only web app, not functions or database rules)
 
+Make sure to change the `web/.well-known/assetlinks.json` file to your SHA hash and your package name and other links in the web page relating to your app hosting url.
+
 ## Deploy app to firebase
 
 Just run in a CMD or terminal `npm run deploy` or do it manually by running `firebase deploy`
