@@ -72,12 +72,20 @@ To generate icons use `flutter pub run flutter_launcher_icons`
 
 ## Build app
 
+### Android
+
 Run `flutter build apk` or `flutter build appbundle`
 
-For the web run `flutter build web --release --web-renderer canvaskit` (or just `flutter build web --release` if you want to use the default web renderer)
+### Web
+
+You must have **node js** and **npm** installed
+
+Run `npm run build` (see package.json)
+
+Run `firebase deploy --only hosting` to deploy to firebase hosting (only web app, not functions or database rules)
 
 ## Deploy app to firebase
 
-Just run in a CMD or terminal `firebase deploy`
+Just run in a CMD or terminal `npm run deploy` or do it manually by running `firebase deploy`
 
 Note: if you are using powershell and it doesn't work, try with CMD (`cmd.exe` inside the powershell terminal).
