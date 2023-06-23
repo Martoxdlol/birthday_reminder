@@ -1,0 +1,63 @@
+---
+import Layout from "./Layout.astro";
+
+export interface Props {
+    title: string;
+    lang: string;
+}
+
+const { title, lang } = Astro.props;
+---
+
+<Layout title={title} lang={lang}>
+    <header class="container">
+        <nav>
+            <ul>
+                <li><a href="./">{lang === "es" ? "Inicio" : "Home"}</a></li>
+                <li><a href="/APP">APP</a></li>
+                <li><a href="https://play.google.com/store/apps/details?id=net.tomascichero.birthdayremainder">Play store</a></li>
+            </ul>
+        </nav>
+    </header>
+    <slot />
+</Layout>
+
+<style is:global>
+    main,
+    .container {
+        margin: auto !important;
+        padding: 0 22.5px !important;
+        max-width: 900px !important;
+    }
+
+    a {
+        color: #0070f3;
+    }
+</style>
+<style>
+    nav {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 0;
+    }
+
+    nav ul {
+        display: flex;
+        list-style: none;
+        flex-wrap: wrap;
+        gap: 5px;
+        padding: 0;
+    }
+
+    nav ul li a {
+        display: block;
+        padding: 6px 14px;
+        font-size: 16px;
+        text-decoration: none;
+        text-transform: uppercase;
+        background-color: rgba(127, 127, 127, 0.2);
+        border-radius: 6px;
+        font-weight: 500;
+    }
+</style>

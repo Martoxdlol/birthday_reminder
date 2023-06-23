@@ -1,57 +1,62 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import Card from "../components/Card.astro";
+import Layout from "../../layouts/Layout.astro";
+import Card from "../../components/Card.astro";
 ---
 
-<Layout title="Birthday Reminder">
+<Layout title="Recordatorio de cumpleaños">
 	<main>
-		<h1>Welcome to <span class="text-gradient">Birthday Reminder</span></h1>
+		<h1>
+			<span class="text-gradient">Recordador de cumpleaños</span>
+		</h1>
 		<p class="instructions">
-			<span class="text-gradient">Birthday Reminder</span> is an app that helps
-			you remember birthdays. You can add birthdays and get notified when they're
-			coming up.
+			<span class="text-gradient">Recordador de cumpleaños</span> es una aplicación
+			que te ayuda a recordar cumpleaños. Puedes agregar cumpleaños y recibir
+			notificaciones cuando se acerquen.
 		</p>
 		<ul role="list" class="link-card-grid">
 			<Card
 				href="/app"
-				title="Open Web App"
-				body="Use the app on the web, no download required."
+				title="Abrir la aplicación web"
+				body="Usa la aplicación en la web, sin necesidad de descargarla."
 			/>
 			<Card
 				href="https://play.google.com/store/apps/details?id=net.tomascichero.birthdayremainder"
-				title="View on Play Store"
-				body="Get the app on your Android phone or tablet."
+				title="Ver en Play Store"
+				body="Obtén la aplicación en tu teléfono o tableta Android."
 			/>
 			<Card
-				href="/privacy-policy"
-				title="Privacy Policy"
-				body="Read our privacy policy to learn how we handle your data."
+				href="./privacy-policy"
+				title="Política de privacidad"
+				body="Lee nuestra política de privacidad para conocer cómo manejamos tus datos."
 			/>
 			<Card
-				href="/terms-of-use"
-				title="Terms of Use"
-				body="Read our terms of use to learn how you can use the app."
+				href="./terms-of-use"
+				title="Términos de uso"
+				body="Lee nuestros términos de uso para saber cómo puedes usar la aplicación."
 			/>
 		</ul>
 		<p class="instructions">
-			This is a open source project. You can view the source code on <a
-				href="https://github.com/Martoxdlol/birthday_reminder"
+			Este es un proyecto de código abierto. Puedes ver el código fuente
+			en <a href="https://github.com/Martoxdlol/birthday_reminder"
 				>https://github.com/Martoxdlol/birthday_reminder</a
 			>
 		</p>
 		<p class="instructions">
-			If you need help contact me at <a href="mailto:martoxdlol@gmail.com"
+			Si necesitas ayuda, contáctame en <a
+				href="mailto:martoxdlol@gmail.com"
 				>martoxdlol@gmail.com</a
 			>
 		</p>
 	</main>
 </Layout>
 
+<!-- Copy all translated to spanish -->
+
 <style>
 	main {
-		margin: auto;
-		padding: 1.5rem;
-		max-width: 70ch;
+		margin: auto !important;
+		padding: 1.5rem !important;
+		max-width: 70ch !important;
 	}
 	h1 {
 		font-size: 3rem;

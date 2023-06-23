@@ -71,12 +71,12 @@ class LoginPage extends StatelessWidget {
             child: Row(
               children: [
                 Hyperlink(
-                  url: "https://www.google.com",
+                  url: "https://birthday-remainder-app.web.app/terms-of-use",
                   child: Text(strings.terms_of_use),
                 ),
                 const SizedBox(width: 22),
                 Hyperlink(
-                  url: "https://www.google.com",
+                  url: "https://birthday-remainder-app.web.app/privacy-policy",
                   child: Text(strings.privacy_policy),
                 ),
                 const SizedBox(width: 22),
