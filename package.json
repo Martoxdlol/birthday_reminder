@@ -1,0 +1,29 @@
+{
+  "name": "birthday_reminder",
+  "version": "1.0.0",
+  "description": "This is a Flutter app that it is used as a calendar for people birthdays.\r It sends you periodic notifications with future and current birthdays so you don't miss\r saying \"Happy Birthday\" to your firends/family/whatever.",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "scripts": {
+    "build:app_web": "flutter build web --release --web-renderer canvaskit --base-href /app/",
+    "build:docs": "cd docs && npm run build && cd .. && npm run copy-files",
+    "build": "npm run build:app_web && npm run build:docs && npm run copy-files",
+    "copy-files": "npx -y copyfiles -u 2 -s docs/dist/**/* dist && npx -y copyfiles -u 2 -s build/web/**/* dist/app",
+    "dev:docs": "cd docs && npm run dev",
+    "dev:emulator": "firebase emulators:start --only hosting",
+    "deploy": "npm run copy-files && firebase deploy"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Martoxdlol/birthday_reminder.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Martoxdlol/birthday_reminder/issues"
+  },
+  "homepage": "https://github.com/Martoxdlol/birthday_reminder#readme"
+}
