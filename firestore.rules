@@ -15,7 +15,7 @@ service cloud.firestore {
 
       allow list: if request.auth.uid == resource.data['user_id'];
     }
-   match /{document=**} {
+    match /{document=**} {
       allow read, write: if false;
     }
   }
