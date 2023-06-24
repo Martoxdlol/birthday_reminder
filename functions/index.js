@@ -19,6 +19,7 @@ exports.manually = functions.runWith({ timeoutSeconds: 540 }).https.onRequest(as
     response.send("Done");
 });
 
+
 exports.shareBirthday = functions.https.onCall(async (data, context) => {
     const email = context.auth.token.email
 
