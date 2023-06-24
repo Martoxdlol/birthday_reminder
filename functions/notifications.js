@@ -89,6 +89,11 @@ async function sendNotification(birthday, user, isFuture = false) {
             "title": title,
             "body": description,
         },
+        "webpush": {
+            "fcmOptions": {
+                "link": `https://birthday-reminder-2.web.app/app/#/?birthday=${encodeURIComponent(birthday.id)}`
+            }
+        },
         "data": {
             "birthday_id": birthday.id,
         }
