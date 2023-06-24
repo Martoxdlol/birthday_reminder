@@ -91,8 +91,8 @@ async function sendNotification(birthday, user, isFuture = false) {
         },
         "webpush": {
             "fcmOptions": {
-                "link": `https://birthday-reminder-2.web.app/app/#/?birthday=${encodeURIComponent(birthday.id)}`
-            }
+                "link": `https://birthday-remainder-app.web.app/app/#/?birthday=${encodeURIComponent(birthday.id)}`,
+            },
         },
         "data": {
             "birthday_id": birthday.id,
