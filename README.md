@@ -60,7 +60,7 @@ You don't need to setup credentials, firebase emulators does it for you.
 
 To start local emulator run `cd functions/ && npm run serve`
 
-To run the function that sends notifications to all users locally start the local emulator and open on your browser `http://127.0.0.1:5000/birthday-remainder-app/us-central1/manually`. Note: the port may differ (may be different than 5000). This will send notification. Be careful, it will use the production database.
+To run the function that sends notifications to all users locally start the local emulator and open on your browser `http://127.0.0.1:5001/birthday-remainder-app/us-central1/manually`. Note: the port may differ (may be different than 5001). This will send notification. Be careful, it will use the production database.
 
 ## Internationalization (multiple languages)
 
