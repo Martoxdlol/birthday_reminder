@@ -1,8 +1,10 @@
 import 'dart:io';
+import 'dart:math';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import "package:universal_html/html.dart" as html;
+import 'package:characters/characters.dart';
 
 String removeDiacritics(String str) {
   var withDia = 'ÀÁÂÃÄÅàáâãäåÒÓÔÕÕÖØòóôõöøÈÉÊËèéêëðÇçÐÌÍÎÏìíîïÙÚÛÜùúûüÑñŠšŸÿýŽž';
@@ -54,4 +56,62 @@ void setWebLocale(Locale locale) {
   } catch (e) {
     if (kDebugMode) print(e);
   }
+}
+
+String extractInitials(String fullName) {
+  if (fullName.isEmpty) {
+    return '';
+  }
+
+  final List<String> nameParts = fullName.trim().split(' ');
+  while (nameParts.length > 2) {
+    nameParts.removeLast();
+  }
+  final StringBuffer initialsBuffer = StringBuffer();
+
+  for (final String namePart in nameParts) {
+    if (namePart.isNotEmpty) {
+      final char = namePart.characters.first;
+      //match if is special symbol
+      if (RegExp('[!@#\$%^&*(),.?":{}|<>]').hasMatch(char)) {
+        continue;
+      }
+      initialsBuffer.write(char.toUpperCase());
+      if (!RegExp('[a-zA-Z]').hasMatch(char)) {
+        break;
+      }
+    }
+  }
+
+  return initialsBuffer.toString();
+}
+
+class ColorPair {
+  final Color background;
+  final Color foreground;
+
+  ColorPair(this.background, this.foreground);
+}
+
+ColorPair generateRandomColor(String fullName) {
+  int seed = 0;
+  for (int i = 0; i < fullName.length; i++) {
+    seed += fullName.codeUnitAt(i);
+  }
+
+  final Random random = Random(seed);
+
+  // Generate random HSL values
+  final double hue = random.nextDouble() * 360.0;
+  final double saturation = 0.5 + random.nextDouble() * 0.5;
+  final double lightness = 0.4 + random.nextDouble() * 0.2;
+
+  final Color background = HSLColor.fromAHSL(1.0, hue, saturation, lightness).toColor().withOpacity(0.7);
+
+  // Calculate contrast color for foreground text
+  const double contrastThreshold = 128;
+  final double luminance = background.computeLuminance();
+  final Color foreground = luminance > contrastThreshold ? Colors.black : Colors.white;
+
+  return ColorPair(background, foreground);
 }

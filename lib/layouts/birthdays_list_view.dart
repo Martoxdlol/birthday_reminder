@@ -56,12 +56,7 @@ class _BirthdaysListViewState extends State<BirthdaysListView> {
 
             final birthday = filteredBirthdays[birthdayIndex];
 
-            return Padding(
-              padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 10),
-              child: BirthdayCard(
-                birthday: birthday,
-              ),
-            );
+            return BirthdayCard(birthday: birthday);
           },
         );
       },

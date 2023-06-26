@@ -1,6 +1,7 @@
 import 'package:birthday_reminder/helpers/birthday.dart';
 import 'package:birthday_reminder/layouts/birthday_view.dart';
 import 'package:birthday_reminder/strings.dart';
+import 'package:birthday_reminder/util.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
@@ -43,65 +44,66 @@ class BirthdayCard extends StatelessWidget {
     final Locale locale = Localizations.localeOf(context);
     final languageCode = locale.languageCode;
 
-    return Card(
-      child: InkWell(
-        onTap: () {
-          showBirthdayView(context, birthday: birthday);
-        },
-        customBorder: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
+    final nextAge = birthday.nextAge();
+
+    String? nextAgeLabel;
+
+    if (nextAge != null) {
+      nextAgeLabel = "${nextAge.toString()} ${strings.years}";
+    }
+
+    final remainingTimeWidget = isToday
+        ? Text(
+            strings.today,
+            style: Theme.of(context).textTheme.labelLarge,
+          )
+        : Text(
+            label,
+            style: Theme.of(context).textTheme.labelLarge,
+          );
+
+    final colors = generateRandomColor(birthday.personName);
+
+    final nextBirthdayLabelTextStyle = Theme.of(context).textTheme.labelSmall?.copyWith(overflow: TextOverflow.ellipsis);
+    final nextBirthdayLabel = Row(
+      children: [
+        Text(
+          DateFormat(formatter, languageCode).format(nextBirthday),
+          style: nextBirthdayLabelTextStyle,
         ),
-        child: Padding(
-          padding: const EdgeInsets.all(20),
-          child: Row(
-            children: [
-              ConstrainedBox(
-                constraints: BoxConstraints(maxWidth: screenWidth - 201),
-                child: Text(
-                  birthday.personName,
-                  overflow: TextOverflow.ellipsis,
-                  style: Theme.of(context).textTheme.bodyLarge,
-                ),
-              ),
-              if (birthday.nextAge() != null) ...[
-                const SizedBox(
-                  width: 8,
-                ),
-                const Icon(
-                  Icons.cake,
-                  color: Colors.black12,
-                  size: 16,
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 4),
-                  child: Text(
-                    birthday.nextAge().toString(),
-                    style: Theme.of(context).textTheme.labelSmall?.copyWith(color: Colors.black38),
-                  ),
-                ),
-              ],
-              const Expanded(child: SizedBox.shrink()),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: isToday
-                    ? [
-                        Text(
-                          strings.today,
-                          style: Theme.of(context).textTheme.labelLarge,
-                        ),
-                      ]
-                    : [
-                        Text(label),
-                        Text(
-                          DateFormat(formatter, languageCode).format(nextBirthday),
-                          style: Theme.of(context).textTheme.labelSmall,
-                        ),
-                      ],
-              ),
-            ],
+        if (nextAgeLabel != null) ...[
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 6),
+            child: Icon(
+              Icons.arrow_forward,
+              size: 8,
+              color: nextBirthdayLabelTextStyle?.color,
+            ),
           ),
-        ),
+          Text(
+            nextAgeLabel,
+            style: nextBirthdayLabelTextStyle,
+          )
+        ]
+      ],
+    );
+
+    return ListTile(
+      leading: CircleAvatar(
+        backgroundColor: colors.background,
+        foregroundColor: colors.foreground,
+        child: Text(extractInitials(birthday.personName)),
       ),
+      title: Text(
+        birthday.personName,
+        overflow: TextOverflow.ellipsis,
+        style: Theme.of(context).textTheme.bodyLarge,
+      ),
+      trailing: remainingTimeWidget,
+      subtitle: nextBirthdayLabel,
+      onTap: () {
+        showBirthdayView(context, birthday: birthday);
+      },
     );
   }
 }
