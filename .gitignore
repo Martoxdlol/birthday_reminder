@@ -53,3 +53,7 @@ app.*.map.json
 *.cache
 google-services.json
 dist
+
+# Signature key
+/android/key.properties
+*.keystore
