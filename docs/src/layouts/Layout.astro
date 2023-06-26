@@ -5,13 +5,18 @@ export interface Props {
 }
 
 const { title, lang } = Astro.props;
+
+const description =
+	lang === "en"
+		? "!No te vuelvas a olvidar de un cumpleaños!"
+		: "!Don't forget a birthday again!";
 ---
 
 <!DOCTYPE html>
 <html lang={lang || "en"}>
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="description" content="Astro description" />
+		<meta name="description" content={description} />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/png" href="/favicon.png" />
 		<meta name="generator" content={Astro.generator} />

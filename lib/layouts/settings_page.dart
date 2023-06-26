@@ -7,6 +7,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:settings_ui/settings_ui.dart';
+import 'package:share_plus/share_plus.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class SettingsPage extends StatefulWidget {
   const SettingsPage({super.key});
@@ -83,44 +85,85 @@ class _SettingsPageState extends State<SettingsPage> {
       lightTheme: const SettingsThemeData(settingsListBackground: Colors.transparent),
       darkTheme: const SettingsThemeData(settingsListBackground: Colors.transparent),
       sections: [
-        SettingsSection(
-          title: Text(strings.account),
-          tiles: <SettingsTile>[
-            SettingsTile.navigation(
-              leading: const Icon(Icons.account_circle_rounded),
-              onPressed: (context) {},
-              title: Text(user?.displayName ?? user?.email ?? 'Anonymous'),
-              value: Text(user?.email ?? ''),
+        SettingsSection(title: Text(strings.account), tiles: <SettingsTile>[
+          SettingsTile.navigation(
+            leading: const Icon(Icons.account_circle_rounded),
+            onPressed: (context) {},
+            title: Text(user?.displayName ?? user?.email ?? 'Anonymous'),
+            value: Text(user?.email ?? ''),
+          ),
+          SettingsTile.navigation(
+            leading: const Icon(Icons.exit_to_app_rounded),
+            title: Text(strings.sign_out),
+            onPressed: (context) {
+              FirebaseAuth.instance.signOut();
+            },
+          ),
+          SettingsTile(
+            leading: const Icon(Icons.delete_forever_rounded),
+            title: Text(strings.delete_all_my_data),
+            onPressed: (context) {
+              launchUrl(Uri.parse(
+                  '${strings.request_delete_data_url}${user!.email ?? '<please put here your email>'}.\n\n${user.uid.substring(user.uid.length - 6)}.\n'));
+            },
+          ),
+        ]),
+        SettingsSection(title: Text(strings.notifications), tiles: [
+          SettingsTile.switchTile(
+            leading: Icon(
+              notificationsEnabled == true
+                  ? Icons.notifications_active_rounded
+                  : (notificationsEnabled == null ? Icons.notifications_rounded : Icons.notifications_off_rounded),
             ),
+            initialValue: canSendNotifications == true && notificationsEnabled == null || notificationsEnabled == true,
+            onToggle: (canSendNotifications != null && notificationsEnabled != null) ? toggle : null,
+            title: Text(strings.notifications),
+          ),
+          SettingsTile.navigation(
+            leading: Icon(Icons.access_time),
+            enabled: notificationsEnabled == true,
+            title: Text(strings.configure_notifications),
+            description: Text(strings.configure_notifications_description),
+            onPressed: notificationsEnabled == true
+                ? (context) {
+                    Navigator.of(context).push(
+                      CupertinoDialogRoute(builder: (context) => const NotificationsSettingsPage(), context: context),
+                    );
+                  }
+                : null,
+          ),
+        ]),
+        SettingsSection(
+          title: const Text("App"),
+          tiles: [
             SettingsTile.navigation(
-              leading: const Icon(Icons.exit_to_app_rounded),
-              title: Text(strings.sign_out),
+              leading: const Icon(Icons.share_rounded),
+              title: Text(strings.share),
               onPressed: (context) {
-                FirebaseAuth.instance.signOut();
+                Share.share('https://birthday-remainder-app.web.app/');
               },
             ),
-            SettingsTile.switchTile(
-              leading: Icon(
-                notificationsEnabled == true
-                    ? Icons.notifications_active_rounded
-                    : (notificationsEnabled == null ? Icons.notifications_rounded : Icons.notifications_off_rounded),
-              ),
-              initialValue: canSendNotifications == true && notificationsEnabled == null || notificationsEnabled == true,
-              onToggle: (canSendNotifications != null && notificationsEnabled != null) ? toggle : null,
-              title: Text(strings.notifications),
+            SettingsTile.navigation(
+              leading: const Icon(Icons.privacy_tip_rounded),
+              title: Text(strings.privacy_policy),
+              onPressed: (context) {
+                launchUrl(Uri.parse('https://birthday-remainder-app.web.app/privacy-policy'), mode: LaunchMode.externalApplication);
+              },
             ),
             SettingsTile.navigation(
-              enabled: notificationsEnabled == true,
-              title: Text(strings.configure_notifications),
-              description: Text(strings.configure_notifications_description),
-              onPressed: notificationsEnabled == true
-                  ? (context) {
-                      Navigator.of(context).push(
-                        CupertinoDialogRoute(builder: (context) => const NotificationsSettingsPage(), context: context),
-                      );
-                    }
-                  : null,
-            )
+              leading: const Icon(Icons.policy_rounded),
+              title: Text(strings.privacy_policy),
+              onPressed: (context) {
+                launchUrl(Uri.parse('https://birthday-remainder-app.web.app/terms-of-use'), mode: LaunchMode.externalApplication);
+              },
+            ),
+            SettingsTile.navigation(
+              leading: const Icon(Icons.help),
+              title: Text(strings.help_and_contact),
+              onPressed: (context) {
+                launchUrl(Uri.parse(strings.help_email_link), mode: LaunchMode.externalApplication);
+              },
+            ),
           ],
         ),
       ],

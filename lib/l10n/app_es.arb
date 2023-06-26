@@ -38,5 +38,9 @@
     "configure_notifications_description": "Configure el horario de notificaciones",
     "privacy_policy": "Política de privacidad",
     "terms_of_use": "Términos de uso",
-    "play_store": "Play Store"
+    "play_store": "Play Store",
+    "delete_all_my_data": "Borrar todos mis datos",
+    "request_delete_data_url": "mailto:martoxdlol@gmail.com?subject=Borrá todos mis datos&body=Hola, quiero que borres mi cuenta y todos mis datos de la aplicación Recordatorio de Cumpleaños. Mi email registrado en la app es: ",
+    "help_and_contact": "Ayuda y contacto",
+    "help_email_link": "mailto:martoxdlol@gmail.com?subject=Recordatorio de Cumpleaños Ayuda&body=Hola, necesito ayuda con la aplicación Recordatorio de Cumpleaños. \n"
 }

@@ -19,7 +19,7 @@ class Hyperlink extends StatelessWidget {
             ),
         child: child,
       ),
-      onTap: () => launchUrl(Uri.parse(url)),
+      onTap: () => launchUrl(Uri.parse(url), mode: LaunchMode.externalApplication),
     );
   }
 }

@@ -139,7 +139,7 @@ class _BirthdayViewState extends State<BirthdayView> {
               }
             } else {
               if (i == 0) {
-                showShareModal(context);
+                showShareModal(context, widget.birthday);
               } else if (i == 1) {
                 Navigator.of(context).pop();
               }

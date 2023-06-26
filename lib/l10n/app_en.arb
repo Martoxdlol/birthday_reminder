@@ -39,5 +39,9 @@
     "configure_notifications_description": "Set at what time you want to receive notifications about upcoming birthdays.",
     "privacy_policy": "Privacy policy",
     "terms_of_use": "Terms of use",
-    "play_store": "Play Store"
+    "play_store": "Play Store",
+    "delete_all_my_data": "Delete all my data",
+    "request_delete_data_url": "mailto:martoxdlol@gmail.com?subject=Delete all my data&body=Hi, I want you to delete my account and all my data from the Birthday Reminder app. My email registered in the app is: ",
+    "help_and_contact": "Help and contact",
+    "help_email_link": "mailto:martoxdlol@gmail.com?subject=Birthday Reminder Help&body=Hi, I need help with the Birthday Reminder app. \n"
 }

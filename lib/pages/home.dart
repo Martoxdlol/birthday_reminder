@@ -146,7 +146,6 @@ class _HomeState extends State<Home> {
       child: Scaffold(
         appBar: SearchAppBar(
           title: Text(titles[currentIndex]),
-          elevation: currentIndex == 2 ? 3.0 : null,
           searchEnabled: currentIndex == 0,
           onCancel: () {
             setState(() {
