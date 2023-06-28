@@ -1,4 +1,5 @@
 import 'package:birthday_reminder/helpers/notifications_registration.dart';
+import 'package:birthday_reminder/strings.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -63,6 +64,8 @@ class _RequestNotificationCardState extends State<RequestNotificationCard> {
 
     if (!show) return const SizedBox.shrink();
 
+    final strings = appStrings(context);
+
     return Theme(
       data: appliedTheme,
       child: Padding(
@@ -81,14 +84,14 @@ class _RequestNotificationCardState extends State<RequestNotificationCard> {
                   ),
                   const SizedBox(width: 5),
                   Text(
-                    "Activar notificaciones",
+                    strings.enbale_notifications,
                     style: Theme.of(context).textTheme.titleLarge?.copyWith(color: Colors.white),
                   ),
                 ]),
                 Padding(
                   padding: const EdgeInsets.symmetric(vertical: 10),
                   child: Text(
-                    "Te avisaremos de los cumpleaños del día y de la semana",
+                    strings.enable_notifications_description,
                     style: textTheme.bodyLarge,
                   ),
                 ),

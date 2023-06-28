@@ -129,7 +129,7 @@ class _HomeState extends State<Home> {
 
     final titles = [
       strings.mainPageTitle,
-      strings.addBirthday,
+      strings.add_birthday,
       strings.settings,
     ];
 
