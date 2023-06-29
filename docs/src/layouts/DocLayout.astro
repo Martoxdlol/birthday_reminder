@@ -14,10 +14,32 @@ const { title, lang } = Astro.props;
         <nav>
             <ul>
                 <li><a href="../">{lang === "es" ? "Inicio" : "Home"}</a></li>
-                <li><a href="https://birthday-remainder-app.web.app/app/">APP</a></li>
-                <li><a href="https://play.google.com/store/apps/details?id=net.tomascichero.birthdayremainder">Play store</a></li>
+                <li>
+                    <a href="https://birthday-remainder-app.web.app/app/"
+                        >{lang === "es" ? "ABRIR" : "OPEN"} APP</a>
+                </li>
             </ul>
         </nav>
+        <div style="display: flex; gap: 10px;">
+            <img src="/favicon.png" width="50px" alt="Icon" />
+            <div>
+                <div>
+                    <b>
+                        {
+                            lang === "es"
+                                ? "Recordador de cumpleaños"
+                                : "Birthday Reminder"
+                        }
+                    </b>
+                </div>
+                <div>
+                    <a
+                        href="https://play.google.com/store/apps/details?id=net.tomascichero.birthdayremainder"
+                        >Get on Play Ptore</a
+                    >
+                </div>
+            </div>
+        </div>
     </header>
     <slot />
 </Layout>
