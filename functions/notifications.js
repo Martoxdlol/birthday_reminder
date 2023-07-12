@@ -127,10 +127,15 @@ async function getUsers(option, timezone, config) {
     }))
 
     if (option === config.defaultTime) {
-        registrations.push(...(await firestore.collection("fcm_tokens").where('timezone', '==', timezone).get()).docs.map(doc => ({
+        let usersWithDefaultTime = (await firestore.collection("fcm_tokens").where('timezone', '==', timezone).get()).docs.map(doc => ({
             token: doc.id,
             ...doc.data()
-        })))
+        }))
+
+        // Only users with default time, that means, users that have not set a daily_update_time
+        usersWithDefaultTime = usersWithDefaultTime.filter(user => !user.daily_update_time)
+
+        registrations.push(...usersWithDefaultTime)
     }
 
     /** @type {{ token: string, lang: string, platform: string, timezone: number, daily_update_time: string | undefined, enable_notifications: boolean, updated_at: any, user_id: string }[]} */
