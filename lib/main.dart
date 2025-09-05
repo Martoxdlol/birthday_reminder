@@ -7,7 +7,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'l10n/app_localizations.dart';
-import 'package:app_links/app_links.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -25,29 +24,12 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  late AppLinks _appLinks;
-
   @override
   void initState() {
-    if (!kIsWeb) {
-      initDeepLinks();
-    }
     if (kIsWeb) {
       appFinishedLoading();
     }
     super.initState();
-  }
-
-  Future<void> initDeepLinks() async {
-    _appLinks = AppLinks();
-
-    // Check initial link if app was in cold state (terminated)
-    final appLink = await _appLinks.getInitialAppLink();
-    if (appLink != null) {
-      navigateToUri(appLink);
-    }
-
-    _appLinks.uriLinkStream.listen(navigateToUri);
   }
 
   void navigateToUri(Uri uri) {

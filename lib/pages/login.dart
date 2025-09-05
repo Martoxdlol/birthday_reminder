@@ -51,9 +51,11 @@ class LoginPage extends StatelessWidget {
                 text: "Sign up with Google",
                 onPressed: () {
                   if (kIsWeb) {
-                    FirebaseAuth.instance.signInWithRedirect(GoogleAuthProvider());
+                    FirebaseAuth.instance
+                        .signInWithRedirect(GoogleAuthProvider());
                   } else {
-                    FirebaseAuth.instance.signInWithProvider(GoogleAuthProvider());
+                    FirebaseAuth.instance
+                        .signInWithProvider(GoogleAuthProvider());
                   }
                 },
               ),
@@ -81,7 +83,8 @@ class LoginPage extends StatelessWidget {
                 ),
                 const SizedBox(width: 22),
                 Hyperlink(
-                  url: "https://play.google.com/store/apps/details?id=net.tomascichero.birthdayremainder",
+                  url:
+                      "https://play.google.com/store/apps/details?id=net.tomascichero.birthdayremainder",
                   child: Text(strings.play_store),
                 ),
               ],
@@ -117,7 +120,10 @@ class SigninWithButton extends StatelessWidget {
       //   ),
       // ),
       onPressed: () {},
-      icon: Image.network('http://pngimg.com/uploads/google/google_PNG19635.png', width: 30, fit: BoxFit.cover),
+      icon: Image.network(
+          'http://pngimg.com/uploads/google/google_PNG19635.png',
+          width: 30,
+          fit: BoxFit.cover),
       label: const Text("Sigin With Google"),
     );
   }

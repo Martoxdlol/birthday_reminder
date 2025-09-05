@@ -32,7 +32,8 @@ class NotificationsRegistration {
 
     final result = await FirebaseMessaging.instance.requestPermission();
 
-    if (result.authorizationStatus == AuthorizationStatus.authorized || result.authorizationStatus == AuthorizationStatus.provisional) {
+    if (result.authorizationStatus == AuthorizationStatus.authorized ||
+        result.authorizationStatus == AuthorizationStatus.provisional) {
       return true;
     }
 
@@ -48,7 +49,9 @@ class NotificationsRegistration {
       task.complete(false);
     });
 
-    AppSettings.openNotificationSettings(callback: () async {
+    AppSettings.openAppSettings(
+      type: AppSettingsType.notification,
+    ).then((value) async {
       if (isCompleted) return;
       timer.cancel();
       task.complete(await canSendNotifications());
@@ -57,7 +60,8 @@ class NotificationsRegistration {
     return await task.future;
   }
 
-  CollectionReference<Map<String, dynamic>> get tokensCollection => FirebaseFirestore.instance.collection('fcm_tokens');
+  CollectionReference<Map<String, dynamic>> get tokensCollection =>
+      FirebaseFirestore.instance.collection('fcm_tokens');
 
   Future<bool> enableNotifications() async {
     if (!await requestNotificationsPermission()) return false;
@@ -163,11 +167,15 @@ class NotificationsRegistration {
   }
 
   Future<List<DailyUpdateTimeOption>> getDailyUpdateTimeOptions() async {
-    if (FirebaseRemoteConfig.instance.lastFetchStatus != RemoteConfigFetchStatus.success) {
+    if (FirebaseRemoteConfig.instance.lastFetchStatus !=
+        RemoteConfigFetchStatus.success) {
       await FirebaseRemoteConfig.instance.fetchAndActivate();
     }
 
-    final rawTimeOptions = jsonDecode(FirebaseRemoteConfig.instance.getString('daily_update_time')) as List<dynamic>? ?? [];
+    final rawTimeOptions =
+        jsonDecode(FirebaseRemoteConfig.instance.getString('daily_update_time'))
+                as List<dynamic>? ??
+            [];
 
     final asListString = rawTimeOptions.map((e) => e.toString()).toList();
 
@@ -175,11 +183,13 @@ class NotificationsRegistration {
   }
 
   Future<DailyUpdateTimeOption> getDefaultDailyUpdateTime() async {
-    if (FirebaseRemoteConfig.instance.lastFetchStatus != RemoteConfigFetchStatus.success) {
+    if (FirebaseRemoteConfig.instance.lastFetchStatus !=
+        RemoteConfigFetchStatus.success) {
       await FirebaseRemoteConfig.instance.fetchAndActivate();
     }
 
-    final rawTime = FirebaseRemoteConfig.instance.getString('default_daily_update_time');
+    final rawTime =
+        FirebaseRemoteConfig.instance.getString('default_daily_update_time');
 
     return DailyUpdateTimeOption.fromTimeString(rawTime);
   }
@@ -192,9 +202,11 @@ class NotificationsRegistration {
 
     if (data == null) return await getDefaultDailyUpdateTime();
 
-    if (data['daily_update_time'] == null) return await getDefaultDailyUpdateTime();
+    if (data['daily_update_time'] == null)
+      return await getDefaultDailyUpdateTime();
 
-    return DailyUpdateTimeOption.fromTimeString(data['daily_update_time'] as String);
+    return DailyUpdateTimeOption.fromTimeString(
+        data['daily_update_time'] as String);
   }
 
   Future<void> setDailyUpdateTime(DailyUpdateTimeOption time) async {
@@ -225,7 +237,8 @@ class DailyUpdateTimeOption {
   }
 
   String get label {
-    DateTime time = DateTime.now().copyWith(hour: hours, minute: minutes, second: seconds);
+    DateTime time =
+        DateTime.now().copyWith(hour: hours, minute: minutes, second: seconds);
 
     if (seconds == 0) {
       return DateFormat('HH:mm').format(time);
@@ -238,7 +251,10 @@ class DailyUpdateTimeOption {
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
 
-    return other is DailyUpdateTimeOption && (other.minutes == minutes && other.seconds == seconds && other.hours == hours);
+    return other is DailyUpdateTimeOption &&
+        (other.minutes == minutes &&
+            other.seconds == seconds &&
+            other.hours == hours);
   }
 
   @override
