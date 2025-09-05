@@ -6,7 +6,7 @@ import 'package:birthday_reminder/util.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'l10n/app_localizations.dart';
 import 'package:app_links/app_links.dart';
 
 void main() async {
@@ -51,9 +51,9 @@ class _MyAppState extends State<MyApp> {
   }
 
   void navigateToUri(Uri uri) {
-    final params = uri.queryParameters;
-    final segments = uri.pathSegments;
-    // TODO: Implement shared link handling
+    // final params = uri.queryParameters;
+    // final segments = uri.pathSegments;
+    // // TODO: Implement shared link handling
   }
 
   @override

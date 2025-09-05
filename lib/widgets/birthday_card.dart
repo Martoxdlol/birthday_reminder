@@ -27,9 +27,11 @@ class BirthdayCard extends StatelessWidget {
       formatter += " y";
     }
 
-    final isToday = nextBirthday.day == now.day && nextBirthday.month == now.month && nextBirthday.year == now.year;
+    final isToday = nextBirthday.day == now.day &&
+        nextBirthday.month == now.month &&
+        nextBirthday.year == now.year;
 
-    final screenWidth = MediaQuery.of(context).size.width;
+    // final screenWidth = MediaQuery.of(context).size.width;
 
     final difference = birthday.durationToNextBirthday();
 
@@ -64,7 +66,10 @@ class BirthdayCard extends StatelessWidget {
 
     final colors = generateRandomColor(birthday.personName);
 
-    final nextBirthdayLabelTextStyle = Theme.of(context).textTheme.labelSmall?.copyWith(overflow: TextOverflow.ellipsis);
+    final nextBirthdayLabelTextStyle = Theme.of(context)
+        .textTheme
+        .labelSmall
+        ?.copyWith(overflow: TextOverflow.ellipsis);
     final nextBirthdayLabel = Row(
       children: [
         Text(
