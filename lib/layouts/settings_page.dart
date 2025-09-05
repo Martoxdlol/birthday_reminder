@@ -82,8 +82,10 @@ class _SettingsPageState extends State<SettingsPage> {
     return SettingsList(
       applicationType: ApplicationType.material,
       platform: DevicePlatform.android,
-      lightTheme: const SettingsThemeData(settingsListBackground: Colors.transparent),
-      darkTheme: const SettingsThemeData(settingsListBackground: Colors.transparent),
+      lightTheme:
+          const SettingsThemeData(settingsListBackground: Colors.transparent),
+      darkTheme:
+          const SettingsThemeData(settingsListBackground: Colors.transparent),
       sections: [
         SettingsSection(title: Text(strings.account), tiles: <SettingsTile>[
           SettingsTile.navigation(
@@ -113,21 +115,31 @@ class _SettingsPageState extends State<SettingsPage> {
             leading: Icon(
               notificationsEnabled == true
                   ? Icons.notifications_active_rounded
-                  : (notificationsEnabled == null ? Icons.notifications_rounded : Icons.notifications_off_rounded),
+                  : (notificationsEnabled == null
+                      ? Icons.notifications_rounded
+                      : Icons.notifications_off_rounded),
             ),
-            initialValue: canSendNotifications == true && notificationsEnabled == null || notificationsEnabled == true,
-            onToggle: (canSendNotifications != null && notificationsEnabled != null) ? toggle : null,
+            initialValue:
+                canSendNotifications == true && notificationsEnabled == null ||
+                    notificationsEnabled == true,
+            onToggle:
+                (canSendNotifications != null && notificationsEnabled != null)
+                    ? toggle
+                    : null,
             title: Text(strings.notifications),
           ),
           SettingsTile.navigation(
-            leading: Icon(Icons.access_time),
+            leading: const Icon(Icons.access_time),
             enabled: notificationsEnabled == true,
             title: Text(strings.configure_notifications),
             description: Text(strings.configure_notifications_description),
             onPressed: notificationsEnabled == true
                 ? (context) {
                     Navigator.of(context).push(
-                      CupertinoDialogRoute(builder: (context) => const NotificationsSettingsPage(), context: context),
+                      CupertinoDialogRoute(
+                          builder: (context) =>
+                              const NotificationsSettingsPage(),
+                          context: context),
                     );
                   }
                 : null,
@@ -147,21 +159,28 @@ class _SettingsPageState extends State<SettingsPage> {
               leading: const Icon(Icons.privacy_tip_rounded),
               title: Text(strings.privacy_policy),
               onPressed: (context) {
-                launchUrl(Uri.parse('https://birthday-remainder-app.web.app/privacy-policy'), mode: LaunchMode.externalApplication);
+                launchUrl(
+                    Uri.parse(
+                        'https://birthday-remainder-app.web.app/privacy-policy'),
+                    mode: LaunchMode.externalApplication);
               },
             ),
             SettingsTile.navigation(
               leading: const Icon(Icons.policy_rounded),
               title: Text(strings.privacy_policy),
               onPressed: (context) {
-                launchUrl(Uri.parse('https://birthday-remainder-app.web.app/terms-of-use'), mode: LaunchMode.externalApplication);
+                launchUrl(
+                    Uri.parse(
+                        'https://birthday-remainder-app.web.app/terms-of-use'),
+                    mode: LaunchMode.externalApplication);
               },
             ),
             SettingsTile.navigation(
               leading: const Icon(Icons.help),
               title: Text(strings.help_and_contact),
               onPressed: (context) {
-                launchUrl(Uri.parse(strings.help_email_link), mode: LaunchMode.externalApplication);
+                launchUrl(Uri.parse(strings.help_email_link),
+                    mode: LaunchMode.externalApplication);
               },
             ),
           ],

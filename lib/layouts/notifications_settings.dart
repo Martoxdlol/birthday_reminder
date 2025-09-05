@@ -5,7 +5,8 @@ class NotificationsSettingsPage extends StatefulWidget {
   const NotificationsSettingsPage({super.key});
 
   @override
-  State<NotificationsSettingsPage> createState() => _NotificationsSettingsPageState();
+  State<NotificationsSettingsPage> createState() =>
+      _NotificationsSettingsPageState();
 }
 
 class _NotificationsSettingsPageState extends State<NotificationsSettingsPage> {
@@ -20,7 +21,9 @@ class _NotificationsSettingsPageState extends State<NotificationsSettingsPage> {
       });
     });
 
-    NotificationsRegistration.instance.getDailyUpdateTimeOptions().then((value) {
+    NotificationsRegistration.instance
+        .getDailyUpdateTimeOptions()
+        .then((value) {
       if (!mounted) return;
       setState(() {
         options = value;
@@ -38,7 +41,7 @@ class _NotificationsSettingsPageState extends State<NotificationsSettingsPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Horario notificaciones"),
+        title: const Text("Horario notificaciones"),
       ),
       body: ListView.builder(
         itemCount: options?.length ?? 0,
@@ -48,7 +51,9 @@ class _NotificationsSettingsPageState extends State<NotificationsSettingsPage> {
           groupValue: notificationTime,
           onChanged: (value) {
             if (value == null) return;
-            NotificationsRegistration.instance.setDailyUpdateTime(value).then((value) => updateData());
+            NotificationsRegistration.instance
+                .setDailyUpdateTime(value)
+                .then((value) => updateData());
           },
         ),
       ),

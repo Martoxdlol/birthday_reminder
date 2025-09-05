@@ -4,11 +4,12 @@ import 'dart:math';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import "package:universal_html/html.dart" as html;
-import 'package:characters/characters.dart';
 
 String removeDiacritics(String str) {
-  var withDia = 'ÀÁÂÃÄÅàáâãäåÒÓÔÕÕÖØòóôõöøÈÉÊËèéêëðÇçÐÌÍÎÏìíîïÙÚÛÜùúûüÑñŠšŸÿýŽž';
-  var withoutDia = 'AAAAAAaaaaaaOOOOOOOooooooEEEEeeeeeCcDIIIIiiiiUUUUuuuuNnSsYyyZz';
+  var withDia =
+      'ÀÁÂÃÄÅàáâãäåÒÓÔÕÕÖØòóôõöøÈÉÊËèéêëðÇçÐÌÍÎÏìíîïÙÚÛÜùúûüÑñŠšŸÿýŽž';
+  var withoutDia =
+      'AAAAAAaaaaaaOOOOOOOooooooEEEEeeeeeCcDIIIIiiiiUUUUuuuuNnSsYyyZz';
 
   for (int i = 0; i < withDia.length; i++) {
     str = str.replaceAll(withDia[i], withoutDia[i]);
@@ -52,7 +53,9 @@ Locale? obtainWebLocale() {
 
 void setWebLocale(Locale locale) {
   try {
-    html.window.document.querySelector('html')?.setAttribute('lang', locale.languageCode);
+    html.window.document
+        .querySelector('html')
+        ?.setAttribute('lang', locale.languageCode);
   } catch (e) {
     if (kDebugMode) print(e);
   }
@@ -106,12 +109,15 @@ ColorPair generateRandomColor(String fullName) {
   final double saturation = 0.5 + random.nextDouble() * 0.5;
   final double lightness = 0.4 + random.nextDouble() * 0.2;
 
-  final Color background = HSLColor.fromAHSL(1.0, hue, saturation, lightness).toColor().withOpacity(0.7);
+  final Color background = HSLColor.fromAHSL(1.0, hue, saturation, lightness)
+      .toColor()
+      .withOpacity(0.7);
 
   // Calculate contrast color for foreground text
   const double contrastThreshold = 128;
   final double luminance = background.computeLuminance();
-  final Color foreground = luminance > contrastThreshold ? Colors.black : Colors.white;
+  final Color foreground =
+      luminance > contrastThreshold ? Colors.black : Colors.white;
 
   return ColorPair(background, foreground);
 }

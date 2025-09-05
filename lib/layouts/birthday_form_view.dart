@@ -132,7 +132,12 @@ class BirthdayFormView extends StatelessWidget {
 }
 
 class ExpandedDropDownPicker extends StatelessWidget {
-  const ExpandedDropDownPicker({super.key, required this.label, required this.items, required this.onChanged, required this.value});
+  const ExpandedDropDownPicker(
+      {super.key,
+      required this.label,
+      required this.items,
+      required this.onChanged,
+      required this.value});
 
   final String label;
   final List<String> items;
@@ -161,7 +166,7 @@ class ExpandedDropDownPicker extends StatelessWidget {
           filled: true,
           labelText: label,
         ),
-        value: value - 1,
+        initialValue: value - 1,
         items: menuItems,
       ),
     );
@@ -169,7 +174,8 @@ class ExpandedDropDownPicker extends StatelessWidget {
 }
 
 class BirthYearPicker extends StatefulWidget {
-  const BirthYearPicker({super.key, required this.onChanged, required this.value});
+  const BirthYearPicker(
+      {super.key, required this.onChanged, required this.value});
 
   final Function(int?)? onChanged;
   final int value;
@@ -199,7 +205,8 @@ class _BirthYearPickerState extends State<BirthYearPicker> {
           child: Row(children: [
             Text((DateTime.now().year - i).toString()),
             const SizedBox(width: 7),
-            Text(strings.born_next_year, style: const TextStyle(color: Colors.grey)),
+            Text(strings.born_next_year,
+                style: const TextStyle(color: Colors.grey)),
           ]),
         ));
       } else if (turns == 0) {
@@ -209,7 +216,8 @@ class _BirthYearPickerState extends State<BirthYearPicker> {
           child: Row(children: [
             Text((DateTime.now().year - i).toString()),
             const SizedBox(width: 7),
-            Text(strings.born_this_year, style: const TextStyle(color: Colors.grey)),
+            Text(strings.born_this_year,
+                style: const TextStyle(color: Colors.grey)),
           ]),
         ));
       } else {
@@ -219,7 +227,8 @@ class _BirthYearPickerState extends State<BirthYearPicker> {
           child: Row(children: [
             Text((DateTime.now().year - i).toString()),
             const SizedBox(width: 7),
-            Text("${strings.turns} $turns ${strings.years}", style: const TextStyle(color: Colors.grey)),
+            Text("${strings.turns} $turns ${strings.years}",
+                style: const TextStyle(color: Colors.grey)),
           ]),
         ));
       }
@@ -236,7 +245,7 @@ class _BirthYearPickerState extends State<BirthYearPicker> {
         filled: true,
         labelText: strings.year_of_birth,
       ),
-      value: widget.value,
+      initialValue: widget.value,
       items: menuItems(context),
     );
   }

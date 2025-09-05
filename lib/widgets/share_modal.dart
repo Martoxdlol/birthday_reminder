@@ -19,7 +19,8 @@ void showShareModal(BuildContext context, Birthday birthday) {
   final string = appStrings(context);
   if (string.localeName.startsWith('es')) {
     final formattedDate = DateFormat('dd/MM/yyyy').format(birthday.birth);
-    Share.share('El día $formattedDate es el cumpleaños de ${birthday.personName}');
+    Share.share(
+        'El día $formattedDate es el cumpleaños de ${birthday.personName}');
   } else {
     final formattedDate = DateFormat('MMMM dd, yyyy').format(birthday.birth);
     Share.share('The day $formattedDate is ${birthday.personName}\'s birthday');
@@ -27,11 +28,11 @@ void showShareModal(BuildContext context, Birthday birthday) {
 
   return;
 
-  // TODO: Actually implement this function
-  showModalBottomSheet(
-    context: context,
-    builder: (BuildContext context) {
-      return ShareModal();
-    },
-  );
+  // // TODO: Actually implement this function
+  // showModalBottomSheet(
+  //   context: context,
+  //   builder: (BuildContext context) {
+  //     return const ShareModal();
+  //   },
+  // );
 }
