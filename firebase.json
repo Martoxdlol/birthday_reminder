@@ -1,38 +1,61 @@
 {
-  "firestore": {
-    "rules": "firestore.rules",
-    "indexes": "firestore.indexes.json"
-  },
-  "hosting": {
-    "public": "dist",
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
-    ],
-    "i18n": {
-      "root": "/"
+    "firestore": {
+        "rules": "firestore.rules",
+        "indexes": "firestore.indexes.json"
     },
-    "rewrites": [
-      {
-        "source": "/app/**",
-        "destination": "/app/index.html"
-      }
-    ]
-  },
-  "functions": [
-    {
-      "source": "functions",
-      "codebase": "default",
-      "ignore": [
-        "node_modules",
-        ".git",
-        "firebase-debug.log",
-        "firebase-debug.*.log"
-      ]
+    "hosting": {
+        "public": "dist",
+        "ignore": [
+            "firebase.json",
+            "**/.*",
+            "**/node_modules/**"
+        ],
+        "i18n": {
+            "root": "/"
+        },
+        "rewrites": [
+            {
+                "source": "/app/**",
+                "destination": "/app/index.html"
+            }
+        ]
+    },
+    "functions": [
+        {
+            "source": "functions",
+            "codebase": "default",
+            "ignore": [
+                "node_modules",
+                ".git",
+                "firebase-debug.log",
+                "firebase-debug.*.log"
+            ]
+        }
+    ],
+    "remoteconfig": {
+        "template": "remoteconfig.template.json"
+    },
+    "flutter": {
+        "platforms": {
+            "android": {
+                "default": {
+                    "projectId": "birthday-remainder-app",
+                    "appId": "1:1018512304007:android:c5bcfb60f613e2a76b5522",
+                    "fileOutput": "android/app/google-services.json"
+                }
+            },
+            "dart": {
+                "lib/firebase_options.dart": {
+                    "projectId": "birthday-remainder-app",
+                    "configurations": {
+                        "android": "1:1018512304007:android:c5bcfb60f613e2a76b5522",
+                        "ios": "1:1018512304007:ios:a49fafd06ee38b9c6b5522",
+                        "macos": "1:1018512304007:ios:a49fafd06ee38b9c6b5522",
+                        "web": "1:1018512304007:web:b3d446df1b1499f56b5522",
+                        "windows": "1:1018512304007:web:07c39be5187c82186b5522"
+                    }
+                }
+            }
+        }
     }
-  ],
-  "remoteconfig": {
-    "template": "remoteconfig.template.json"
-  }
 }

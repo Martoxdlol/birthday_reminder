@@ -43,11 +43,6 @@ app.*.map.json
 /android/app/profile
 /android/app/release
 
-# Firebase options (with private keys)
-/lib/firebase_options.dart
-/ios/Runner/GoogleService-Info.plist
-/android/app/google-services.json
-
 # Firebase deploy
 .firebase
 *.cache
